@@ -581,7 +581,7 @@ The tree's answer:
 {_rules_md(so["top_rules"] + so["bottom_rules"], so["base_rate"])}
 
 **In business language:** *low-value items bought from the very largest vendors are the slow
-ones.* The segment "top vendor (> 5,000 items a year) and item value below EUR 500" holds
+ones.* The segment "top vendor (> 5,000 items in the log) and item value below EUR 500" holds
 **{n(hp["cases"])} items from just {hp["vendors"]} vendors**, {pct(hp["spend_area_top"].get("Packaging", 0), 0)}
 of them in Packaging. **{pct(hp["slow_share"], 0)} of them are slow, against
 {pct(rest["slow_share"], 0)} for everything else.**
@@ -644,12 +644,255 @@ with more negotiation (price and quantity changes) on larger purchases.
 """
 
 
+def page_tobe(paths) -> str | None:
+    s = _load(paths, "tobe/tobe_summary.json")
+    if s is None:
+        return None
+    opps = _load(paths, "tobe/opportunities.csv").sort_values("priority")
+    b, t = s["baseline"], s["target"]
+    table = pd.DataFrame(
+        {
+            "Priority": opps["priority"].astype(int),
+            "Opportunity": [
+                f"**{i}** {nm}" for i, nm in zip(opps["id"], opps["name"], strict=True)
+            ],
+            "Items improved": opps["items_improved"].astype(int),
+            "Waiting removed (case-days)": [n(x) for x in opps["case_days_saved"]],
+            "Median saving per item (days)": [n(x, 1) for x in opps["median_saving_days"]],
+            "Median cycle if done alone": [n(x, 1) for x in opps["median_cycle_if_alone"]],
+            "Effort": opps["effort"],
+        }
+    )
+    assumptions = "\n".join(
+        f"| **{r.id}** | {r.lever} | {r.assumption} | {r.kpi} |" for r in opps.itertuples()
+    )
+    anchor = _load(paths, "tobe/payment_anchor_evidence.csv")
+    anchor.columns = [
+        "Invoice capture time (days)",
+        "Items",
+        "Median invoice date → cleared",
+        "Median posting → cleared",
+    ]
+    ht = s["hotspot_payment_timing"]
+    o6 = opps[opps["id"] == "O6"].iloc[0]
+    kp = pd.DataFrame(
+        {
+            "KPI": [
+                "Median cycle time (days)",
+                "P90 cycle time (days)",
+                "Rework rate",
+                "First-pass three-way match",
+                f"Paid within {s['payment_term_days_assumed']} days of invoice date",
+            ],
+            "AS-IS baseline": [
+                n(b["median_cycle_days"], 1),
+                n(b["p90_cycle_days"], 1),
+                pct(b["rework_rate"]),
+                pct(b["first_pass_match_rate"]),
+                pct(b["on_time_payment_rate"]),
+            ],
+            "TO-BE estimate": [
+                n(t["median_cycle_days"], 1),
+                n(t["p90_cycle_days"], 1),
+                pct(t["rework_rate"]),
+                pct(t["first_pass_match_rate"]),
+                pct(t["on_time_payment_rate"]),
+            ],
+        }
+    )
+    return f"""# 6 · TO-BE process and improvement case
+
+> **Question.** What should the process look like, which changes come first, and how much
+> waiting would they remove - according to the company's own data?
+
+!!! warning "Estimates, not savings"
+    Every figure on this page is an **estimate derived from the AS-IS event log under the
+    assumption written next to it**. Nothing here has been implemented or measured after a
+    change. Base: {n(s["cohort_items"])} completed invoice items from POs created
+    {s["cohort"][0]} - {s["cohort"][1]} (exclusive), i.e. eight months of orders.
+
+## TO-BE process
+
+![TO-BE BPMN](assets/figures/to_be_bpmn.png)
+
+What changes against the AS-IS model of phase 2:
+
+| AS-IS (observed) | TO-BE (designed) |
+| --- | --- |
+| Goods receipt, invoice, block removal and clearing run in any order and repeat | Goods receipt in parallel with e-invoice → automatic three-way match; clearing only after the match |
+| {pct(1 - b["first_pass_match_rate"])} of 3-way items need a manual block release or an invoice re-posting | Auto-release inside tolerance; a named owner resolves exceptions within 5 days |
+| Price and quantity changed after the PO in {pct(b["rework_rate"])} of items (incl. invoice cancellations) | PO created from catalogue / contract price; requester confirms quantity before release |
+| Paper / PDF invoices posted a median 9 days (P90 48) after their date | Structured e-invoice, posted on receipt |
+| Small items from the largest vendors wait ~{n(ht["hotspot_median_invoice_date_to_clear"])} days from invoice date to payment | Self-billing (ERS) or one consolidated invoice per period ([`models/to_be_ers_variant.bpmn`](https://github.com/juansanchezalcantara20-ai/p2p-process-mining/blob/main/models/to_be_ers_variant.bpmn)) |
+| Invoices dated before the PO accepted | "No PO, no pay"; fast-track PO or purchasing card for urgent buys |
+
+BPMN: [`models/to_be.bpmn`](https://github.com/juansanchezalcantara20-ai/p2p-process-mining/blob/main/models/to_be.bpmn).
+
+## Prioritised opportunities
+
+![Priority matrix](assets/figures/priority_matrix.png)
+
+{md_table(table)}
+
+Priority = waiting removed ÷ effort (Low 1, Medium 2, High 3). Effort is a judgement call and
+is labelled as such; impact comes from the data. **O6** removes no waiting - its case is
+control: {n(o6["items_improved"])} items in the cohort, EUR {n(o6["value_affected_eur"] / 1e6, 1)} M of PO value bought before a PO existed.
+
+### The assumption behind every number
+
+| # | Lever | Assumption behind the estimate | KPI it moves |
+| --- | --- | --- | --- |
+{assumptions}
+
+### Why e-invoicing is estimated conservatively
+
+A naive estimate would credit every day of faster invoice capture as a day of faster payment.
+The data say otherwise: **payment is anchored on the vendor's invoice date**, not on the day
+the invoice is posted. The later an invoice is posted, the *shorter* the wait between posting
+and payment - the total from invoice date to payment barely moves until capture becomes very
+slow:
+
+{md_table(anchor)}
+
+So O4 only claims time for invoices that were posted so late that payment slipped past the
+assumed {s["payment_term_days_assumed"]}-day term. The same evidence warns about O2: the
+hotspot's small items are paid a median {n(ht["hotspot_median_invoice_date_to_clear"])} days
+after their invoice date versus {n(ht["rest_median_invoice_date_to_clear"])} for everything
+else. If that reflects an agreed 90-day term, O2's time and cash effect is zero and only the
+administrative saving (thousands fewer invoices to match) remains. **Check the contracts
+before committing to O2's number.**
+
+## What the improved process would look like in numbers
+
+Simulation: for each opportunity, the assumed avoidable share of affected items (seeded
+random draw) loses its excess time over comparable peers; savings are summed per item and the
+new cycle time is never shorter than the item's own delivery time.
+
+{md_table(kp)}
+
+Combined, the levers remove an estimated **{n(s["combined_case_days_saved"])} case-days** of
+waiting over eight months of orders (the sum of the individual estimates,
+{n(s["sum_of_individual_case_days"])}, overlaps slightly because some items benefit from
+several levers). These targets feed the control dashboard in the DMAIC chapter.
+
+On-time payment depends heavily on the assumed term (no due-date field exists in the log):
+the share of items paid within 30 / 45 / 60 / 90 days of the invoice date is
+{" / ".join(pct(v, 0) for v in s["on_time_sensitivity"].values())}.
+"""
+
+
+def page_dmaic(paths) -> str | None:
+    s = _load(paths, "tobe/tobe_summary.json")
+    q = _load(paths, "quality/quality_report.json")
+    d = _load(paths, "discovery/discovery_summary.json")
+    p = _load(paths, "performance/performance_summary.json")
+    c = _load(paths, "conformance/conformance_summary.json")
+    r = _load(paths, "rootcause/rootcause_summary.json")
+    if None in (s, q, d, p, c, r):
+        return None
+    b, t = s["baseline"], s["target"]
+    hp = r["hotspot_profile"]["hotspot"]
+    stage = {x["stage"]: x for x in p["stages"]}
+    m2c = stage["Goods + invoice matched → cleared"]["median_days"]
+    term = s["payment_term_days_assumed"]
+    return f"""# 7 · DMAIC: the improvement case end to end
+
+The analysis above, organised as a Lean Six Sigma DMAIC project.
+
+## Define
+
+**Problem statement.** Purchase-order items take a median of **{n(b["median_cycle_days"])}
+days** (P90 {n(b["p90_cycle_days"])}) from order to payment; only
+**{pct(b["on_time_payment_rate"])}** of invoices are paid within {term} days of their date, and
+**{pct(1 - b["first_pass_match_rate"])}** of three-way-match items need manual intervention
+(payment block or invoice re-posting) before they can be paid.
+
+**Goal.** Reduce median order-to-payment time towards **{n(t["median_cycle_days"])} days** and
+raise first-pass match to **{pct(t["first_pass_match_rate"], 0)}**, without weakening controls.
+
+**Scope.** Purchase-order items (one case = one PO item) of the four item categories, from
+requisition/PO creation to invoice clearing. Out of scope: sourcing, contract negotiation,
+treasury decisions on payment runs.
+
+**CTQs (critical to quality).** Order-to-payment time; on-time payment to suppliers; first-pass
+three-way match; no purchase without a PO.
+
+**SIPOC**
+
+| Suppliers | Inputs | Process | Outputs | Customers |
+| --- | --- | --- | --- | --- |
+| Requesters, vendors, contract owners | Requisition, PO data, goods, vendor invoice | Requisition → PO → goods receipt → invoice receipt → match → clear | Paid, correctly matched invoice; received goods | Vendors, requesters, finance / AP, auditors |
+
+## Measure
+
+* Data: {n(q["fingerprint"]["events"])} events, {n(q["fingerprint"]["cases"])} cases - the
+  complete BPI Challenge 2019 log, checked and cleaned with a written trail
+  ([phase 1](01-data-quality.md)).
+* Baseline (mature cohort, POs Jan-Aug 2018): median cycle {n(b["median_cycle_days"], 1)} days,
+  P90 {n(b["p90_cycle_days"], 1)}; rework {pct(b["rework_rate"])}; first-pass three-way match
+  {pct(b["first_pass_match_rate"])}; paid within {term} days {pct(b["on_time_payment_rate"])}.
+* Measurement-system notes: three activities are date-only; no due-date field (on-time KPI
+  uses an assumed term); late cohorts are right-censored and excluded from timing.
+
+## Analyze
+
+* **Flow** ([phase 2](02-discovery.md)): {n(d["variants"])} variants; {d["variants_for_80pct"]}
+  cover 80% of cases; only {pct(d["textbook_share_complete_cases"])} of completed cases follow
+  the textbook path.
+* **Bottleneck** ([phase 3](03-performance.md)): the stage after goods and invoice are both in
+  takes a median {n(m2c)} days - over half of the cycle; *invoice receipt → clear* alone holds
+  {pct(p["top_waiting_handover"]["share_of_total_wait"])} of all waiting.
+* **Compliance** ([phase 4](04-conformance.md)): {pct(c["conforming_share"])} of completed
+  cases conform to the expected model; payment blocks are the highest-impact deviation.
+* **Root cause** ([phase 5](05-root-cause.md)): low-value items from the {hp["vendors"]}
+  largest vendors are slow {pct(hp["slow_share"], 0)} of the time; quantity changes and payment
+  blocks are the process behaviours most associated with delay.
+
+## Improve
+
+Six prioritised levers and the TO-BE process ([phase 6](06-to-be.md)). Suggested sequencing:
+
+1. **Quick wins (0-3 months):** O5 invoice validation at capture, O6 "no PO, no pay",
+   contract check for the hotspot vendors (decides O2).
+2. **Core (3-9 months):** O1 tolerance-based auto-release, O4 e-invoicing, O2 self-billing pilot
+   with one hotspot vendor.
+3. **Structural (6-12 months):** O3 catalogue / contract pricing in the PO.
+
+Pilot each lever on one spend area first and compare it with a control group - the event log
+makes a before/after comparison cheap.
+
+## Control
+
+The dashboard the process owner would review monthly. Each KPI is computed from fields that
+already exist in the event log, so it can be refreshed automatically by this pipeline.
+
+![KPI dashboard](assets/figures/kpi_dashboard.png)
+
+Grey bands are 3-sigma p-chart limits around the baseline proportion: a month outside the band
+is a real change, not noise. Shown here on the baseline months, before any change.
+
+| KPI | Definition (from the event log) | Baseline | Target (TO-BE estimate) | Review | Reaction if off-track |
+| --- | --- | --- | --- | --- | --- |
+| Order-to-payment time | Median days, *Create PO Item* → last *Clear Invoice*, completed invoice items, by PO month | {n(b["median_cycle_days"], 1)} d | {n(t["median_cycle_days"], 1)} d | Monthly | Drill into the waiting Pareto for the month; check block queue |
+| Rework rate | Share of items with *Change Price*, *Change Quantity* or *Cancel Invoice Receipt* after the PO | {pct(b["rework_rate"])} | {pct(t["rework_rate"])} | Monthly | Top spend areas / requesters by changes; refresh catalogue prices |
+| First-pass three-way match | Share of 3-way items cleared with no payment block and no invoice cancellation | {pct(b["first_pass_match_rate"])} | {pct(t["first_pass_match_rate"])} | Weekly | Review block reasons; adjust tolerances |
+| On-time payment | Share cleared ≤ {term} days after the vendor invoice date (assumed term) | {pct(b["on_time_payment_rate"])} | {pct(t["on_time_payment_rate"])} | Monthly | Replace the assumed term with real due dates; review late payments by vendor |
+| After-the-fact purchasing (guardrail) | Share of invoice items with vendor invoice dated before the PO | see phase 4 | → 0 | Monthly | Escalate to budget owner |
+
+Targets are the simulated TO-BE values from phase 6 and inherit its assumptions. Speed must not
+be bought by weakening control: the after-the-fact guardrail and the three-way-match rule
+(phase 4) stay on the dashboard for that reason.
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
     "02-discovery.md": page_discovery,
     "03-performance.md": page_performance,
     "04-conformance.md": page_conformance,
     "05-root-cause.md": page_rootcause,
+    "06-to-be.md": page_tobe,
+    "07-dmaic.md": page_dmaic,
 }
 
 

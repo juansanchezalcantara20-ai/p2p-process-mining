@@ -1,0 +1,177 @@
+{
+  "cohort_items": 152655,
+  "cohort": [
+    "2018-01-01",
+    "2018-09-01"
+  ],
+  "payment_term_days_assumed": 60,
+  "baseline": {
+    "median_cycle_days": 80.13055555555556,
+    "rework_rate": 0.14052602273099474,
+    "first_pass_match_rate": 0.7100014424526941,
+    "on_time_payment_rate": 0.42818887094868663,
+    "p90_cycle_days": 132.15
+  },
+  "target": {
+    "median_cycle_days": 63.27847222222222,
+    "rework_rate": 0.09001342897382988,
+    "first_pass_match_rate": 0.8071506314008838,
+    "on_time_payment_rate": 0.768013494532614,
+    "p90_cycle_days": 107.6625
+  },
+  "combined_case_days_saved": 2428296.16875,
+  "sum_of_individual_case_days": 2452065.4409722225,
+  "on_time_sensitivity": {
+    "30": 0.10221741836166519,
+    "45": 0.2188595198323016,
+    "60": 0.42735580229930237,
+    "90": 0.7559857194327078
+  },
+  "hotspot_payment_timing": {
+    "hotspot_median_invoice_date_to_clear": 100.58819444444444,
+    "rest_median_invoice_date_to_clear": 61.59166666666667,
+    "hotspot_items": 21763
+  },
+  "opportunities": [
+    {
+      "id": "O2",
+      "short": "Self-billing for top vendors' small items",
+      "name": "Self-billing / consolidated invoicing for high-volume, low-value lines",
+      "items_improved": 20775,
+      "case_days_saved": 1193897.240277778,
+      "median_saving_days": 60.543055555555554,
+      "median_cycle_if_alone": 69.39236111111111,
+      "p90_cycle_if_alone": 125.94930555555555,
+      "value_affected_eur": 4767855.0,
+      "effort": "Medium",
+      "kpi": "Cycle time, on-time payment",
+      "priority_score": 596948.620138889,
+      "priority": 1
+    },
+    {
+      "id": "O4",
+      "short": "E-invoicing",
+      "name": "E-invoicing to cut invoice capture time",
+      "items_improved": 60684,
+      "case_days_saved": 935523.3381944444,
+      "median_saving_days": 8.588888888888889,
+      "median_cycle_if_alone": 73.12430555555557,
+      "p90_cycle_if_alone": 123.44999999999999,
+      "value_affected_eur": 324253253.0,
+      "effort": "Medium",
+      "kpi": "Cycle time",
+      "priority_score": 467761.6690972222,
+      "priority": 2
+    },
+    {
+      "id": "O1",
+      "short": "Auto-release matched invoices",
+      "name": "Auto-release matched invoices (remove avoidable payment blocks)",
+      "items_improved": 13395,
+      "case_days_saved": 160437.96736111114,
+      "median_saving_days": 13.886111111111113,
+      "median_cycle_if_alone": 79.15763888888888,
+      "p90_cycle_if_alone": 129.06805555555556,
+      "value_affected_eur": 70982135.0,
+      "effort": "Medium",
+      "kpi": "First-pass match rate, cycle time",
+      "priority_score": 80218.98368055557,
+      "priority": 3
+    },
+    {
+      "id": "O5",
+      "short": "Validate invoices at capture",
+      "name": "Validate invoices at capture (fewer cancellations and re-postings)",
+      "items_improved": 1790,
+      "case_days_saved": 49663.44305555557,
+      "median_saving_days": 26.905555555555566,
+      "median_cycle_if_alone": 80.04444444444445,
+      "p90_cycle_if_alone": 131.96527777777777,
+      "value_affected_eur": 49377816.0,
+      "effort": "Low",
+      "kpi": "Rework rate, first-pass match rate",
+      "priority_score": 49663.44305555557,
+      "priority": 4
+    },
+    {
+      "id": "O3",
+      "short": "Price/qty settled before PO",
+      "name": "Settle price and quantity before the PO is issued",
+      "items_improved": 6128,
+      "case_days_saved": 112543.45208333331,
+      "median_saving_days": 21.663194444444443,
+      "median_cycle_if_alone": 79.21041666666666,
+      "p90_cycle_if_alone": 129.19930555555555,
+      "value_affected_eur": 74194055.0,
+      "effort": "High",
+      "kpi": "Rework rate, cycle time",
+      "priority_score": 37514.48402777777,
+      "priority": 5
+    },
+    {
+      "id": "O6",
+      "short": "No PO, no pay",
+      "name": "Enforce 'no PO, no pay' (after-the-fact purchasing)",
+      "items_improved": 2355,
+      "case_days_saved": 0.0,
+      "median_saving_days": 0.0,
+      "median_cycle_if_alone": 80.13055555555556,
+      "p90_cycle_if_alone": 132.15,
+      "value_affected_eur": 29839194.0,
+      "effort": "Low",
+      "kpi": "Compliance (after-the-fact rate)",
+      "priority_score": 0.0,
+      "priority": 6
+    }
+  ],
+  "assumptions": {
+    "O1": {
+      "name": "Auto-release matched invoices (remove avoidable payment blocks)",
+      "lever": "Tolerance-based automatic three-way match; blocks only for true exceptions; daily exception queue with an owner and a 5-day SLA.",
+      "p_avoidable": 0.5,
+      "assumption": "Half of today's payment blocks are avoidable (e.g. small price/quantity differences inside a tolerance). For each avoided block the item loses its excess matched-to-cleared time over unblocked items of the same category, capped at the category's median excess.",
+      "effort": "Medium",
+      "kpi": "First-pass match rate, cycle time"
+    },
+    "O2": {
+      "name": "Self-billing / consolidated invoicing for high-volume, low-value lines",
+      "lever": "Evaluated receipt settlement (pay on goods receipt, no vendor invoice) or one consolidated invoice per period for the largest vendors' small items.",
+      "p_avoidable": 1.0,
+      "assumption": "For items from vendors with > 5,000 items in the log and value below EUR 500 (the root-cause hotspot), matched-to-cleared time falls to the median of all other items. If the long wait is a contractual payment term, the time and cash impact is zero and only the administrative saving remains - verify terms first.",
+      "effort": "Medium",
+      "kpi": "Cycle time, on-time payment"
+    },
+    "O3": {
+      "name": "Settle price and quantity before the PO is issued",
+      "lever": "Catalogue/contract prices in the PO, quantity confirmation from the requester, PO approval checks the price against the contract.",
+      "p_avoidable": 0.5,
+      "assumption": "Half of post-PO price/quantity changes are preventable. Each prevented change removes the item's excess cycle time over unchanged items of the same category, capped at the category's median excess.",
+      "effort": "High",
+      "kpi": "Rework rate, cycle time"
+    },
+    "O4": {
+      "name": "E-invoicing to cut invoice capture time",
+      "lever": "Structured e-invoices / OCR with automatic posting.",
+      "p_avoidable": 1.0,
+      "assumption": "Capture time (vendor invoice date \u2192 invoice posted) falls to at most 3 days. The data show that payment is anchored on the vendor's invoice date, not on the posting date, so faster capture only helps items that were paid later than the assumed 60-day term: the saving is the smaller of (capture time beyond target) and (days paid beyond the term).",
+      "effort": "Medium",
+      "kpi": "Cycle time"
+    },
+    "O5": {
+      "name": "Validate invoices at capture (fewer cancellations and re-postings)",
+      "lever": "Mandatory PO reference and line validation before posting.",
+      "p_avoidable": 0.5,
+      "assumption": "Half of invoice cancellations are preventable; each removes the item's excess cycle time over items without cancellation, capped at the category median excess.",
+      "effort": "Low",
+      "kpi": "Rework rate, first-pass match rate"
+    },
+    "O6": {
+      "name": "Enforce 'no PO, no pay' (after-the-fact purchasing)",
+      "lever": "Reject invoices without a prior PO; route urgent buys through a fast-track PO or procurement card.",
+      "p_avoidable": null,
+      "assumption": "Control and audit-risk improvement. These items are faster than peers, so no cycle-time saving is claimed; the impact is the PO value bought outside the control.",
+      "effort": "Low",
+      "kpi": "Compliance (after-the-fact rate)"
+    }
+  }
+}

@@ -75,3 +75,17 @@ Newest phase last.
 | C4 | Spend area grouped to the top 10 + *Other*; vendor size bucketed by yearly item volume (<50, 50-500, 500-5k, >5k); PO value in quartiles. | Keeps branches readable and avoids one-vendor leaves that cannot generalise. |
 | C5 | Tree leaves are rewritten as **value sets** ("PO item value is Q1 or Q2") instead of chains of one-hot negations. | "Not Q4 and not Q3" is how the algorithm thinks, not how a manager reads. |
 | C6 | The hotspot segment found by the tree is **profiled stage by stage** before any conclusion is drawn. | Shows *where* the extra time sits (after matching, not in delivery) and keeps two competing explanations open rather than picking one the data cannot prove. |
+
+## Phase 6 · TO-BE and improvement case
+
+| # | Decision | Why |
+|---|---|---|
+| B1 | **Every impact figure is an estimate with its assumption written next to it** (`tobe.ASSUMPTIONS`, rendered verbatim in the report). No figure is presented as a realised saving. | Hard rule of the project, and good practice: a committee should be able to challenge the assumption, not reverse-engineer it. |
+| B2 | Impact unit = **case-days of waiting removed** (plus median cycle and P90 if the lever were done alone), not euros. | The log has no cost or interest-rate data; translating days into money would need invented rates. |
+| B3 | Savings per item = **excess over comparable peers in the same item category, capped at the category median excess**, applied to a **seeded random share** of affected items equal to the assumed avoidable share. | Uses only observed differences, cannot exceed what the item actually waited, and keeps the distribution realistic for medians/P90 (deterministic seed 42). |
+| B4 | **E-invoicing (O4) is credited only for invoices paid beyond the assumed term.** | The data show that payment is anchored on the vendor invoice date: the later the posting, the shorter posting→payment, while invoice date→payment barely moves until capture exceeds ~40 days. Crediting every capture day would overstate the lever several times over (a first naive version did exactly that: 2.3 M case-days instead of 0.9 M). |
+| B5 | **Payment term assumed at 60 days** for the on-time KPI, with a 30/45/60/90-day sensitivity shown. | The log has no due date; 60 days sits near the observed median invoice-date→payment time. The real term is the first thing to replace once available. |
+| B6 | O2 (self-billing for the hotspot vendors) is ranked first **but flagged**: if their ~100-day invoice-to-payment time is a contractual term, its time impact is zero. | Honest ranking: it is the biggest number *and* the most assumption-sensitive one. |
+| B7 | Priority = waiting removed ÷ effort score (Low 1 / Medium 2 / High 3); effort is labelled as judgement. | Separates what the data can say (impact) from what it cannot (implementation effort). |
+| B8 | TO-BE drawn as a process tree → BPMN with pm4py, plus an ERS variant for the hotspot. | Keeps the TO-BE in the same, machine-readable notation as the AS-IS and the normative models. |
+| B9 | Control dashboard: monthly KPIs by PO-creation month on the baseline months, **3-sigma p-chart limits** for proportions, baseline and TO-BE target lines. | Standard Lean Six Sigma control; every KPI is computable from existing log fields, so the pipeline itself is the monitoring tool. |

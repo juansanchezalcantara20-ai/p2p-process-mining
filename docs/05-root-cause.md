@@ -42,7 +42,7 @@ The tree's answer:
 | spend area is Sales AND vendor size is not top (>5k items) AND PO item value is Q1 (< EUR 144) | 12,076 | 3.9% | ×0.16 |
 
 **In business language:** *low-value items bought from the very largest vendors are the slow
-ones.* The segment "top vendor (> 5,000 items a year) and item value below EUR 500" holds
+ones.* The segment "top vendor (> 5,000 items in the log) and item value below EUR 500" holds
 **21,714 items from just 6 vendors**, 100%
 of them in Packaging. **64% of them are slow, against
 19% for everything else.**
