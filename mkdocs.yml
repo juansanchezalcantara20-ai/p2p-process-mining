@@ -28,4 +28,10 @@ markdown_extensions:
 nav:
   - "Committee summary": index.md
   - "1 · Data quality": 01-data-quality.md
+  - "2 · AS-IS discovery": 02-discovery.md
+  - "3 · Performance": 03-performance.md
+  - "4 · Compliance": 04-conformance.md
+  - "5 · Root cause": 05-root-cause.md
+  - "6 · TO-BE & improvement case": 06-to-be.md
+  - "7 · DMAIC & control": 07-dmaic.md
   - "Decision log": DECISIONS.md

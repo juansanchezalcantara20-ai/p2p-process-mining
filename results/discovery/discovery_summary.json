@@ -1,0 +1,66 @@
+{
+  "cases": 243096,
+  "events": 1438148,
+  "activities": 42,
+  "variants": 10824,
+  "variants_for_80pct": 42,
+  "singleton_variants": 8033,
+  "top_variant": "Create Purchase Order Item > Vendor creates invoice > Record Goods Receipt > Record Invoice Receipt > Clear Invoice",
+  "top_variant_share": 0.20714038898213052,
+  "strict_happy_path": "Create Purchase Order Item > Vendor creates invoice > Record Goods Receipt > Record Invoice Receipt > Clear Invoice",
+  "strict_happy_share": 0.20714038898213052,
+  "textbook_share_all_cases": 0.4912915062362194,
+  "textbook_share_complete_cases": 0.6062456535753625,
+  "textbook_share_by_category_complete": [
+    {
+      "cat": "2-way match",
+      "happy_share": 0.0,
+      "complete_cases": 301
+    },
+    {
+      "cat": "3-way match, invoice after GR",
+      "happy_share": 0.4280091153925834,
+      "complete_cases": 9654
+    },
+    {
+      "cat": "3-way match, invoice before GR",
+      "happy_share": 0.6003295158651519,
+      "complete_cases": 173588
+    },
+    {
+      "cat": "Consignment",
+      "happy_share": 0.8239708723435875,
+      "complete_cases": 13458
+    }
+  ],
+  "dfg_edges": 458,
+  "model": {
+    "min_activity_share": 0.05,
+    "activities_in_model": [
+      "Change Quantity",
+      "Clear Invoice",
+      "Create Purchase Order Item",
+      "Create Purchase Requisition Item",
+      "Receive Order Confirmation",
+      "Record Goods Receipt",
+      "Record Invoice Receipt",
+      "Remove Payment Block",
+      "Vendor creates invoice"
+    ],
+    "events_kept_share": 0.9318415072718524,
+    "noise_threshold": 0.2,
+    "process_tree": "->( X( tau, 'Create Purchase Requisition Item' ), 'Create Purchase Order Item', X( tau, +( X( tau, *( 'Receive Order Confirmation', tau ) ), X( tau, *( 'Change Quantity', tau ) ) ) ), +( *( 'Record Goods Receipt', tau ), *( 'Record Invoice Receipt', tau ), X( tau, *( 'Clear Invoice', tau ) ), X( tau, *( 'Remove Payment Block', tau ) ), *( 'Vendor creates invoice', tau ) ) )",
+    "log_fitness": 0.9750792156554482,
+    "fitting_traces_pct": 82.77059268766249,
+    "precision_5000_cases": 0.6875044004099227
+  },
+  "model_all_activities": {
+    "min_activity_share": 0.0,
+    "events_kept_share": 1.0,
+    "noise_threshold": 0.2,
+    "process_tree": "->( X( tau, ->( X( tau, ->( +( 'Create Purchase Order Item', X( tau, *( 'Change Delivery Indicator', tau ) ), ->( +( X( tau, 'Create Purchase Requisition Item' ), ->( X( tau, 'Release Purchase Requisition' ), +( X( tau, *( 'Change Price', tau ) ), ->( X( tau, 'Change Payment Term' ), X( tau, 'Change Currency' ), +( X( tau, *( 'Delete Purchase Order Item', tau ) ), ->( X( tau, *( 'Change Rejection Indicator', tau ) ), +( X( tau, *( 'SRM: Created', tau ) ), ->( X( tau, +( 'SRM: Incomplete', 'SRM: Held' ) ), *( X( 'Block Purchase Order Item', 'Release Purchase Order', 'Update Order Confirmation', ->( X( tau, 'Change Storage Location', 'Reactivate Purchase Order Item', 'Record Service Entry Sheet', 'Change Approval for Purchase Order', 'Receive Order Confirmation', 'Vendor creates debit memo', ->( X( tau, ->( 'SRM: Complete', 'SRM: Awaiting Approval', 'SRM: Document Completed' ) ), X( 'Cancel Goods Receipt', 'Vendor creates invoice' ) ) ), X( tau, 'SRM: Deleted', 'Record Goods Receipt', 'Change Final Invoice Indicator', 'Change Quantity', *( 'Cancel Invoice Receipt', tau ), +( ->( 'SRM: Ordered', 'SRM: Change was Transmitted' ), *( 'SRM: In Transfer to Execution Syst.', tau ) ) ) ) ), tau ) ) ) ) ) ) ) ) ), X( tau, 'SRM: Transaction Completed' ) ) ), *( 'Record Invoice Receipt', tau ) ) ), X( tau, *( 'Remove Payment Block', tau ) ) ) ), X( tau, *( 'Clear Invoice', tau ) ), X( tau, 'SRM: Transfer Failed (E.Sys.)' ) )",
+    "log_fitness": 0.9828397063812725,
+    "fitting_traces_pct": 75.25792279593247,
+    "precision_5000_cases": 0.23329635217892963
+  }
+}

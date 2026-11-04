@@ -1,0 +1,4 @@
+document_type,cases,median_days,p75_days,p90_days,mean_days,total_case_days
+Standard PO,151263,80.15,110.65,132.03,84.71,12813122.60
+EC Purchase order,919,67.21,88.36,168.35,88.32,81164.36
+Framework order,473,162.98,344.93,364.97,186.09,88018.99

@@ -1,0 +1,152 @@
+{
+  "cases": 243096,
+  "conforming_share_all": 0.49517474577944515,
+  "complete_cases": 197001,
+  "conforming_share": 0.6110375074238202,
+  "mean_trace_fitness": 0.9881105438731549,
+  "share_with_extra_activities": 0.36179004167491535,
+  "by_category": [
+    {
+      "item_category": "2-way match",
+      "cases": 301,
+      "conforming": 0.0,
+      "mean_fitness": 0.8743692261964688
+    },
+    {
+      "item_category": "3-way match, invoice after GR",
+      "cases": 9654,
+      "conforming": 0.4282162834058421,
+      "mean_fitness": 0.9438213022335072
+    },
+    {
+      "item_category": "3-way match, invoice before GR",
+      "cases": 173588,
+      "conforming": 0.6003986450676314,
+      "mean_fitness": 0.9898568023022404
+    },
+    {
+      "item_category": "Consignment",
+      "cases": 13458,
+      "conforming": 0.8930747510774261,
+      "mean_fitness": 0.9999009263387328
+    }
+  ],
+  "any_rule_violation_share": 0.32614687201763914,
+  "rules": {
+    "R1_no_three_way_match": {
+      "title": "Paid without a three-way match",
+      "control": "An item requiring 3-way match is cleared only after both a goods receipt and an invoice receipt exist.",
+      "applies_to": "3-way match items that reached Clear Invoice"
+    },
+    "R2_invoice_before_gr": {
+      "title": "Invoice posted before goods receipt (GR-based IV)",
+      "control": "Items flagged 'invoice after GR' must not have the invoice posted before the goods are received.",
+      "applies_to": "3-way match, invoice after GR"
+    },
+    "R3_price_change_after_po": {
+      "title": "Price changed after the PO was issued",
+      "control": "Prices are agreed before ordering; a change after the PO is rework.",
+      "applies_to": "all items"
+    },
+    "R4_quantity_change_after_po": {
+      "title": "Quantity changed after the PO was issued",
+      "control": "Quantities are agreed before ordering; a change after the PO is rework.",
+      "applies_to": "all items"
+    },
+    "R5_payment_block": {
+      "title": "Invoice payment was blocked",
+      "control": "A matched invoice flows to payment without manual block/release.",
+      "applies_to": "invoice items"
+    },
+    "R6_after_the_fact_po": {
+      "title": "Purchase without a prior PO (invoice dated before the PO)",
+      "control": "No purchase without a purchase order: the vendor invoice date must not precede PO creation.",
+      "applies_to": "invoice items"
+    },
+    "R7_invoice_cancelled": {
+      "title": "Invoice receipt cancelled and re-posted",
+      "control": "An invoice is posted once, correctly.",
+      "applies_to": "invoice items"
+    }
+  },
+  "impact": [
+    {
+      "rule": "R5_payment_block",
+      "title": "Invoice payment was blocked",
+      "applicable_cases": 229012,
+      "violating_cases": 55909,
+      "violation_rate": 0.24413131189631984,
+      "value_eur": 272801013.0,
+      "excess_median_days": 16.161429381007668,
+      "excess_case_days": 682060.8041666666,
+      "impact_rank": 1.0
+    },
+    {
+      "rule": "R4_quantity_change_after_po",
+      "title": "Quantity changed after the PO was issued",
+      "applicable_cases": 243096,
+      "violating_cases": 17194,
+      "violation_rate": 0.07072925922269392,
+      "value_eur": 103982069.0,
+      "excess_median_days": 23.931788167022283,
+      "excess_case_days": 287875.47986111103,
+      "impact_rank": 2.6666666666666665
+    },
+    {
+      "rule": "R3_price_change_after_po",
+      "title": "Price changed after the PO was issued",
+      "applicable_cases": 243096,
+      "violating_cases": 11005,
+      "violation_rate": 0.04527018132754138,
+      "value_eur": 130456649.0,
+      "excess_median_days": 18.31405219371037,
+      "excess_case_days": 143453.97083333333,
+      "impact_rank": 3.0
+    },
+    {
+      "rule": "R7_invoice_cancelled",
+      "title": "Invoice receipt cancelled and re-posted",
+      "applicable_cases": 229012,
+      "violating_cases": 6414,
+      "violation_rate": 0.02800726599479503,
+      "value_eur": 104333146.0,
+      "excess_median_days": 31.377445616293663,
+      "excess_case_days": 158424.7229166667,
+      "impact_rank": 3.3333333333333335
+    },
+    {
+      "rule": "R6_after_the_fact_po",
+      "title": "Purchase without a prior PO (invoice dated before the PO)",
+      "applicable_cases": 229012,
+      "violating_cases": 3616,
+      "violation_rate": 0.015789565612282327,
+      "value_eur": 41219355.0,
+      "excess_median_days": -41.22308633733868,
+      "excess_case_days": -92628.27500000001,
+      "impact_rank": 5.666666666666667
+    },
+    {
+      "rule": "R1_no_three_way_match",
+      "title": "Paid without a three-way match",
+      "applicable_cases": 183242,
+      "violating_cases": 657,
+      "violation_rate": 0.003585422555964244,
+      "value_eur": 1654256.0,
+      "excess_median_days": -16.937500000000007,
+      "excess_case_days": -8638.125000000004,
+      "impact_rank": 6.0
+    },
+    {
+      "rule": "R2_invoice_before_gr",
+      "title": "Invoice posted before goods receipt (GR-based IV)",
+      "applicable_cases": 14839,
+      "violating_cases": 0,
+      "violation_rate": 0.0,
+      "value_eur": 0.0,
+      "excess_median_days": NaN,
+      "excess_case_days": 0.0,
+      "impact_rank": 6.333333333333333
+    }
+  ],
+  "alignment_cases": 2995
+}

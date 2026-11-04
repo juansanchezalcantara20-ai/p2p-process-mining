@@ -1,0 +1,24 @@
+attribute,value,cases,rate,lift
+item type,Subcontracting,1540,0.5545,2.2187
+vendor size,top (>5k items),38353,0.5031,2.0127
+spend area,Packaging,68051,0.3866,1.5467
+item type,Service,2138,0.3227,1.2912
+PO item value,Q2 (EUR 144-497),41705,0.3093,1.2374
+spend area,Trading & End Products,14071,0.2739,1.0958
+vendor size,small (<50 items),8248,0.2548,1.0196
+PO item value,"Q3 (EUR 497-1,964)",41027,0.2522,1.0090
+item category,"3-way match, invoice before GR",144342,0.2510,1.0041
+document type,Standard PO,151263,0.2494,0.9980
+item type,Standard,145229,0.2494,0.9976
+PO item value,"Q4 (> EUR 1,964)",40620,0.2388,0.9554
+item category,"3-way match, invoice after GR",8176,0.2346,0.9386
+spend area,Other,5385,0.2332,0.9332
+vendor size,medium (50-500),32365,0.1931,0.7725
+PO item value,Q1 (< EUR 144),29303,0.1778,0.7112
+spend area,Additives,10375,0.1603,0.6413
+vendor size,large (500-5k),73689,0.1426,0.5706
+item type,Third-party,3611,0.1072,0.4288
+spend area,Others,1541,0.0973,0.3894
+spend area,Sales,42567,0.0845,0.3380
+spend area,Latex & Monomers,2562,0.0820,0.3279
+spend area,CAPEX & SOCS,3852,0.0457,0.1828

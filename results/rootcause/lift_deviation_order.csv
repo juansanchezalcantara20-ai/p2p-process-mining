@@ -1,0 +1,27 @@
+attribute,value,cases,rate,lift
+spend area,Trading & End Products,17013,0.4707,1.3502
+PO item value,"Q4 (> EUR 1,964)",48503,0.4472,1.2829
+spend area,Latex & Monomers,4199,0.4175,1.1976
+vendor size,small (<50 items),10440,0.4066,1.1664
+spend area,CAPEX & SOCS,5302,0.3927,1.1264
+PO item value,"Q3 (EUR 497-1,964)",49399,0.3870,1.1101
+vendor size,top (>5k items),42356,0.3819,1.0955
+item category,"3-way match, invoice before GR",173588,0.3676,1.0545
+item category,"3-way match, invoice after GR",9654,0.3663,1.0507
+item type,Standard,174449,0.3635,1.0426
+spend area,Packaging,84647,0.3632,1.0420
+spend area,Solvents,2254,0.3536,1.0143
+item type,Third-party,4517,0.3520,1.0098
+document type,Standard PO,195173,0.3479,0.9980
+spend area,Other,7870,0.3417,0.9801
+item type,Service,2588,0.3408,0.9776
+started from a purchase requisition,True,24516,0.3400,0.9753
+PO item value,Q2 (EUR 144-497),49494,0.3367,0.9659
+vendor size,medium (50-500),44341,0.3352,0.9617
+vendor size,large (500-5k),99864,0.3344,0.9591
+spend area,Others,1972,0.3210,0.9208
+spend area,Sales,55598,0.2931,0.8406
+spend area,Additives,14781,0.2890,0.8289
+PO item value,Q1 (< EUR 144),49605,0.2258,0.6478
+item category,Consignment,13458,0.0791,0.2270
+item type,Consignment,13458,0.0791,0.2270

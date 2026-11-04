@@ -1,0 +1,8 @@
+rule,cases,rate,lift
+vendor size is top (>5k items) AND PO item value is Q1 (< EUR 144) or Q2 (EUR 144-497),21714,0.6355,2.5425
+"vendor size is top (>5k items) AND PO item value is Q3 (EUR 497-1,964)",10619,0.4257,1.7034
+spend area is not Sales AND vendor size is not top (>5k items) AND PO item value is not Q1 (< EUR 144),60604,0.2363,0.9452
+"vendor size is top (>5k items) AND PO item value is Q4 (> EUR 1,964)",6020,0.1618,0.6473
+spend area is Sales AND vendor size is not top (>5k items) AND PO item value is not Q1 (< EUR 144),30491,0.1024,0.4095
+spend area is not Sales AND vendor size is not top (>5k items) AND PO item value is Q1 (< EUR 144),11131,0.0851,0.3404
+spend area is Sales AND vendor size is not top (>5k items) AND PO item value is Q1 (< EUR 144),12076,0.0393,0.1574

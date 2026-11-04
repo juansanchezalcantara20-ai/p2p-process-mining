@@ -1,0 +1,21 @@
+move_type,activity,moves,aligned_cases
+"log move (extra, not in model)",Remove Payment Block,698,2995
+"model move (expected, missing)",Clear Invoice,567,2995
+"log move (extra, not in model)",Record Goods Receipt,441,2995
+"log move (extra, not in model)",Record Service Entry Sheet,381,2995
+"log move (extra, not in model)",Change Quantity,286,2995
+"model move (expected, missing)",Record Invoice Receipt,231,2995
+"log move (extra, not in model)",Change Price,162,2995
+"log move (extra, not in model)",Vendor creates invoice,125,2995
+"model move (expected, missing)",Record Goods Receipt,117,2995
+"log move (extra, not in model)",Cancel Invoice Receipt,83,2995
+"log move (extra, not in model)",Record Invoice Receipt,77,2995
+"log move (extra, not in model)",Vendor creates debit memo,72,2995
+"log move (extra, not in model)",Change Approval for Purchase Order,61,2995
+"log move (extra, not in model)",Change Delivery Indicator,55,2995
+"log move (extra, not in model)",Clear Invoice,50,2995
+"log move (extra, not in model)",Cancel Goods Receipt,37,2995
+"log move (extra, not in model)",Release Purchase Order,21,2995
+"log move (extra, not in model)",SRM: Created,17,2995
+"log move (extra, not in model)",SRM: Complete,17,2995
+"log move (extra, not in model)",SRM: Awaiting Approval,17,2995

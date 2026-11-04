@@ -1,0 +1,8 @@
+rule,cases,rate,lift
+item category is not Consignment AND spend area is not Sales AND PO item value is not Q1 (< EUR 144),107848,0.4224,1.2117
+"item category is 2-way match or 3-way match, invoice after GR AND spend area is Sales",2291,0.4168,1.1958
+"item category is 3-way match, invoice before GR AND spend area is Sales",53253,0.2879,0.8257
+item category is not Consignment AND spend area is not Sales AND PO item value is Q1 (< EUR 144),20151,0.2864,0.8217
+item category is Consignment AND spend area is Additives,2406,0.0998,0.2861
+item category is Consignment AND spend area is not Additives / Packaging,3033,0.0910,0.2610
+item category is Consignment AND spend area is Packaging,8019,0.0685,0.1964

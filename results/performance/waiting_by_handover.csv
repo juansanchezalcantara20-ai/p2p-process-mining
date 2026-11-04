@@ -1,0 +1,430 @@
+source,target,count,cases,median_days,p90_days,mean_days,total_days
+Record Invoice Receipt,Clear Invoice,112323,110261,37.949,92.126,45.156,5072017.257
+Record Goods Receipt,Record Invoice Receipt,80269,79932,10.683,48.796,19.721,1583003.619
+Vendor creates invoice,Record Goods Receipt,79114,76912,1.434,5.363,2.491,197080.814
+Create Purchase Order Item,Vendor creates invoice,77411,77411,6.613,29.496,12.567,972848.557
+Vendor creates invoice,Record Invoice Receipt,69454,68452,4.413,36.436,12.598,875009.475
+Record Goods Receipt,Vendor creates invoice,58292,57612,0.630,9.303,3.386,197390.174
+Create Purchase Order Item,Record Goods Receipt,42558,42558,11.883,27.835,13.816,587975.996
+Remove Payment Block,Clear Invoice,41243,40942,29.761,95.908,38.632,1593292.122
+Record Invoice Receipt,Remove Payment Block,27815,27414,7.165,62.792,21.563,599763.987
+Record Goods Receipt,Record Goods Receipt,19821,2997,0.000,0.006,0.267,5286.408
+Create Purchase Order Item,Receive Order Confirmation,18533,18533,0.053,0.631,0.461,8538.615
+Record Invoice Receipt,Record Goods Receipt,12578,12090,1.134,6.139,2.924,36776.821
+Receive Order Confirmation,Record Goods Receipt,12532,12532,4.972,13.232,6.563,82245.910
+Record Goods Receipt,Remove Payment Block,11938,11920,0.367,4.717,3.292,39300.159
+Record Goods Receipt,Record Service Entry Sheet,11827,2109,0.000,0.000,0.013,155.204
+Create Purchase Order Item,Change Quantity,7154,7154,6.200,39.135,13.794,98679.922
+Record Service Entry Sheet,Record Goods Receipt,6676,977,0.001,0.061,0.302,2013.301
+Receive Order Confirmation,Vendor creates invoice,5883,5883,5.497,17.291,7.838,46110.662
+Change Quantity,Record Goods Receipt,5704,5550,0.855,15.132,5.303,30248.203
+Record Invoice Receipt,Record Invoice Receipt,5301,2715,0.072,9.213,4.309,22841.476
+Change Quantity,Vendor creates invoice,4545,4476,5.583,31.542,12.404,56376.042
+Create Purchase Order Item,Change Price,4155,4155,1.837,18.132,6.579,27337.565
+Vendor creates invoice,Vendor creates debit memo,3685,3543,0.000,0.000,0.257,947.000
+Clear Invoice,Record Invoice Receipt,3510,2840,3.953,138.547,34.540,121235.561
+Record Invoice Receipt,Vendor creates invoice,2837,2101,0.531,13.622,4.660,13221.399
+Record Service Entry Sheet,Vendor creates invoice,2683,1645,3.266,25.052,8.827,23682.790
+Change Price,Vendor creates invoice,2624,2624,3.701,29.303,10.493,27533.254
+Cancel Invoice Receipt,Clear Invoice,2498,2333,0.001,28.170,7.131,17813.418
+Clear Invoice,Clear Invoice,2251,2080,14.974,43.181,21.994,49509.146
+Vendor creates invoice,Create Purchase Order Item,2242,2242,15.344,56.719,26.343,59060.383
+Record Invoice Receipt,Cancel Invoice Receipt,2161,2011,17.994,99.913,34.008,73492.017
+Vendor creates invoice,Change Quantity,2065,2016,2.349,9.491,4.765,9839.956
+Record Service Entry Sheet,Record Invoice Receipt,2058,666,1.325,13.860,5.430,11175.163
+Clear Invoice,Cancel Invoice Receipt,2021,1917,90.121,168.632,88.587,179033.825
+Change Price,Record Goods Receipt,2016,1958,5.020,24.291,9.574,19300.484
+Vendor creates debit memo,Record Goods Receipt,1686,1666,1.774,6.576,3.510,5918.448
+Record Invoice Receipt,Change Price,1677,1672,6.847,55.116,18.799,31526.610
+Vendor creates debit memo,Record Invoice Receipt,1651,1631,9.486,54.710,19.597,32354.011
+Cancel Invoice Receipt,Record Invoice Receipt,1622,1490,0.003,1.081,1.720,2790.613
+Change Price,Remove Payment Block,1553,1550,0.001,0.595,1.267,1968.290
+Vendor creates invoice,Vendor creates invoice,1466,884,5.000,28.000,8.777,12867.000
+Change Quantity,Change Quantity,1344,991,0.193,20.617,5.897,7925.023
+Vendor creates invoice,Clear Invoice,1334,853,8.592,100.677,31.005,41360.777
+Clear Invoice,Vendor creates invoice,1238,435,6.322,24.617,11.478,14209.222
+Create Purchase Order Item,Change Approval for Purchase Order,1196,1196,0.148,3.015,1.271,1519.867
+Create Purchase Requisition Item,Create Purchase Order Item,1187,1187,0.601,1.569,1.022,1213.123
+SRM: Awaiting Approval,SRM: Document Completed,1060,919,0.000,0.000,0.000,0.000
+SRM: Complete,SRM: Awaiting Approval,1060,919,0.000,0.000,0.000,0.000
+SRM: Created,SRM: Complete,1037,914,0.083,0.084,0.067,69.076
+SRM: In Transfer to Execution Syst.,SRM: Ordered,1006,877,0.000,0.000,0.000,0.001
+SRM: Document Completed,SRM: In Transfer to Execution Syst.,995,877,0.000,0.001,0.154,153.622
+SRM: Ordered,SRM: Change was Transmitted,897,897,0.000,0.000,0.000,0.010
+SRM: Change was Transmitted,Create Purchase Order Item,858,858,0.000,0.000,0.000,0.004
+Record Goods Receipt,Change Quantity,854,812,0.984,10.156,3.809,3252.589
+Clear Invoice,Record Goods Receipt,775,295,5.096,30.265,12.303,9534.760
+Change Price,Change Quantity,774,741,1.010,43.098,13.554,10490.852
+Release Purchase Order,Change Approval for Purchase Order,744,328,0.011,17.996,2.767,2058.728
+Create Purchase Order Item,Record Invoice Receipt,717,717,4.293,15.864,7.686,5510.983
+Change Quantity,Change Delivery Indicator,717,688,0.000,0.000,1.033,740.617
+Change Approval for Purchase Order,Change Approval for Purchase Order,674,166,0.306,46.875,13.861,9341.987
+Clear Invoice,Remove Payment Block,670,659,11.849,47.874,22.078,14792.102
+Change Price,Record Invoice Receipt,646,646,15.813,98.599,29.955,19351.117
+Vendor creates debit memo,Cancel Invoice Receipt,635,633,13.492,43.712,18.393,11679.607
+Cancel Goods Receipt,Record Goods Receipt,614,423,0.001,2.783,1.912,1174.271
+Vendor creates invoice,Change Price,582,574,2.312,21.505,7.198,4189.119
+Record Goods Receipt,Change Price,582,581,7.000,34.994,13.484,7847.881
+Record Invoice Receipt,Change Quantity,577,564,4.926,44.951,14.668,8463.342
+Change Approval for Purchase Order,Vendor creates invoice,574,573,20.368,172.295,43.370,24894.392
+Record Service Entry Sheet,Record Service Entry Sheet,574,322,0.000,0.007,0.196,112.528
+Record Goods Receipt,Cancel Goods Receipt,533,452,0.003,2.152,1.048,558.744
+Change Price,Change Price,510,389,0.967,21.802,9.461,4825.026
+Change Approval for Purchase Order,Release Purchase Order,509,165,3.996,119.804,24.256,12346.396
+Change Delivery Indicator,Record Invoice Receipt,507,505,11.081,44.129,18.201,9227.740
+Cancel Invoice Receipt,Remove Payment Block,487,485,0.393,7.987,5.482,2669.514
+Change Quantity,Record Invoice Receipt,486,484,7.047,44.459,16.610,8072.684
+Record Goods Receipt,Clear Invoice,485,469,34.984,105.977,46.942,22766.907
+Change Delivery Indicator,Record Goods Receipt,403,395,0.065,4.083,1.375,554.170
+Record Goods Receipt,Change Delivery Indicator,395,391,1.009,7.808,2.938,1160.633
+Remove Payment Block,Record Goods Receipt,383,370,1.178,9.788,3.956,1515.065
+Record Invoice Receipt,Vendor creates debit memo,373,368,15.451,65.192,24.010,8955.719
+Remove Payment Block,Record Invoice Receipt,362,322,6.049,30.747,11.928,4317.880
+Record Service Entry Sheet,Clear Invoice,353,137,2.076,9.438,4.463,1575.513
+Change Quantity,Change Price,325,321,1.719,12.849,5.432,1765.451
+Change Approval for Purchase Order,Receive Order Confirmation,296,296,0.026,2.656,0.410,121.496
+Remove Payment Block,Vendor creates invoice,294,278,3.576,16.160,7.251,2131.769
+Receive Order Confirmation,Change Quantity,264,264,2.576,14.176,5.611,1481.335
+Create Purchase Order Item,Cancel Goods Receipt,256,256,1.298,7.009,3.467,887.627
+Change Price,Clear Invoice,253,252,29.922,83.978,38.476,9734.399
+Change Approval for Purchase Order,Change Price,244,236,6.903,64.131,16.281,3972.508
+Change Delivery Indicator,Clear Invoice,241,241,41.074,77.776,43.882,10575.495
+Remove Payment Block,Cancel Invoice Receipt,240,239,11.917,76.781,23.005,5521.248
+Cancel Goods Receipt,Vendor creates debit memo,235,235,5.297,43.187,13.094,3077.185
+Record Goods Receipt,Cancel Invoice Receipt,232,232,48.268,127.072,52.707,12227.967
+Change Approval for Purchase Order,Change Quantity,227,219,49.947,82.211,45.818,10400.648
+Reactivate Purchase Order Item,Record Goods Receipt,213,213,0.076,13.928,4.245,904.131
+Record Invoice Receipt,Change Delivery Indicator,209,209,6.172,39.134,14.508,3032.218
+Record Service Entry Sheet,Cancel Goods Receipt,195,118,0.011,4.937,1.196,233.237
+Cancel Subsequent Invoice,Clear Invoice,194,193,16.890,61.150,24.256,4705.605
+Vendor creates invoice,Remove Payment Block,191,186,3.483,70.745,14.241,2720.114
+Change Delivery Indicator,Vendor creates invoice,187,184,1.417,8.464,4.411,824.848
+Create Purchase Order Item,Release Purchase Order,179,179,0.000,0.028,0.087,15.626
+Change Approval for Purchase Order,Record Invoice Receipt,176,173,1.268,9.204,5.342,940.130
+Vendor creates debit memo,Clear Invoice,172,170,12.469,52.000,19.021,3271.592
+Vendor creates debit memo,Cancel Subsequent Invoice,171,170,11.628,36.500,16.718,2858.707
+Vendor creates invoice,Change Delivery Indicator,171,171,1.560,7.434,3.198,546.866
+Vendor creates debit memo,Vendor creates invoice,165,151,4.000,22.600,7.473,1233.000
+Cancel Subsequent Invoice,Remove Payment Block,157,156,0.272,0.663,0.592,92.994
+Receive Order Confirmation,Change Price,157,157,1.035,15.041,5.600,879.145
+Remove Payment Block,Remove Payment Block,153,150,4.178,36.781,11.746,1797.093
+Create Purchase Order Item,Delete Purchase Order Item,151,151,0.199,17.858,4.847,731.876
+Delete Purchase Order Item,Reactivate Purchase Order Item,148,147,0.158,5.282,1.790,264.882
+Change Quantity,Clear Invoice,144,143,50.960,93.255,50.661,7295.161
+Create Purchase Order Item,Change Storage Location,132,132,2.773,11.007,6.101,805.388
+Change Quantity,Receive Order Confirmation,129,129,0.064,2.828,1.118,144.283
+Record Goods Receipt,Vendor creates debit memo,129,129,6.683,34.730,14.836,1913.902
+Clear Invoice,Change Price,128,126,21.957,120.440,46.322,5929.166
+Receive Order Confirmation,Update Order Confirmation,126,126,2.899,10.226,5.011,631.417
+Block Purchase Order Item,Reactivate Purchase Order Item,119,119,0.975,4.944,4.828,574.588
+Vendor creates debit memo,Remove Payment Block,116,115,2.404,32.076,8.771,1017.465
+Change Storage Location,Record Goods Receipt,115,115,0.244,13.191,3.719,427.719
+Cancel Goods Receipt,Vendor creates invoice,114,107,1.533,11.439,4.067,463.608
+Change Approval for Purchase Order,Clear Invoice,114,114,44.778,59.110,42.487,4843.489
+Change Delivery Indicator,Vendor creates debit memo,109,109,4.539,29.360,12.538,1366.665
+Remove Payment Block,Change Price,108,108,6.694,34.783,11.334,1224.032
+Clear Invoice,Vendor creates debit memo,106,105,33.833,122.391,46.133,4890.048
+Vendor creates invoice,Record Service Entry Sheet,104,54,5.099,23.817,11.813,1228.579
+Change Approval for Purchase Order,Record Goods Receipt,103,99,6.776,14.786,6.938,714.645
+Remove Payment Block,Change Quantity,103,102,3.006,16.350,6.282,647.021
+Clear Invoice,Change Quantity,100,100,17.953,90.861,34.248,3424.795
+SRM: Ordered,Change Price,100,77,0.000,0.000,0.000,0.000
+Change Price,SRM: Deleted,97,76,0.000,0.000,0.000,0.000
+Remove Payment Block,Vendor creates debit memo,95,95,9.461,55.820,19.091,1813.603
+Change Delivery Indicator,Remove Payment Block,91,91,1.702,56.895,17.070,1553.393
+Record Subsequent Invoice,Clear Invoice,90,88,7.025,49.404,15.883,1429.431
+Vendor creates debit memo,Create Purchase Order Item,89,89,3.750,53.696,17.269,1536.982
+Change Delivery Indicator,Change Quantity,89,87,0.104,8.822,2.935,261.242
+Change Quantity,Block Purchase Order Item,88,88,0.000,21.841,3.687,324.463
+Vendor creates invoice,SRM: Created,87,84,15.387,68.949,29.416,2559.235
+Clear Invoice,Change Approval for Purchase Order,86,86,35.658,76.945,42.052,3616.485
+Vendor creates invoice,Cancel Goods Receipt,82,51,2.432,8.570,3.840,314.908
+Reactivate Purchase Order Item,Vendor creates invoice,82,82,5.286,28.175,11.304,926.955
+Remove Payment Block,Change Delivery Indicator,81,81,6.351,27.008,11.896,963.538
+Receive Order Confirmation,Record Invoice Receipt,81,81,5.244,36.002,13.127,1063.325
+Clear Invoice,SRM: In Transfer to Execution Syst.,79,79,174.747,288.247,158.656,12533.856
+Clear Invoice,Cancel Subsequent Invoice,78,77,13.916,52.348,26.067,2033.230
+Record Invoice Receipt,Cancel Subsequent Invoice,78,78,5.122,17.209,6.254,487.779
+Change Quantity,Remove Payment Block,77,77,7.289,57.445,20.955,1613.538
+Update Order Confirmation,Record Goods Receipt,77,77,7.980,19.359,9.905,762.714
+Cancel Goods Receipt,Record Invoice Receipt,76,74,4.619,28.028,9.824,746.626
+Vendor creates invoice,Cancel Invoice Receipt,72,58,3.705,12.205,5.583,402.001
+Vendor creates debit memo,Change Quantity,70,70,3.448,7.026,4.736,331.547
+Cancel Goods Receipt,Cancel Invoice Receipt,69,69,1.047,19.069,13.033,899.287
+Change Delivery Indicator,Change Delivery Indicator,69,64,0.073,6.924,1.912,131.914
+Change Quantity,Change Approval for Purchase Order,69,67,0.071,3.082,1.797,124.015
+SRM: Deleted,Record Goods Receipt,63,58,1.469,11.877,5.331,335.829
+Record Service Entry Sheet,Change Price,62,43,0.009,3.530,3.036,188.232
+Change Storage Location,Vendor creates invoice,61,61,7.349,25.653,10.502,640.642
+Cancel Goods Receipt,Change Quantity,60,60,0.875,61.871,12.262,735.713
+Vendor creates invoice,Receive Order Confirmation,59,59,2.468,11.547,3.576,211.010
+Cancel Invoice Receipt,Cancel Invoice Receipt,58,39,0.003,2.301,3.388,196.529
+Create Purchase Order Item,Record Service Entry Sheet,58,58,0.000,7.382,3.806,220.748
+Change Approval for Purchase Order,Create Purchase Order Item,56,56,13.694,52.965,20.702,1159.285
+Change Price,Change Approval for Purchase Order,56,46,0.961,17.996,6.227,348.717
+Vendor creates debit memo,Change Price,55,55,19.495,19.498,14.593,802.618
+Cancel Goods Receipt,Cancel Goods Receipt,55,42,0.001,0.113,0.283,15.542
+Record Invoice Receipt,Change Approval for Purchase Order,54,54,12.550,26.255,14.198,766.676
+SRM: Document Completed,SRM: Ordered,54,53,0.000,0.038,0.169,9.142
+Clear Invoice,Record Subsequent Invoice,51,50,14.141,92.865,34.088,1738.490
+Record Invoice Receipt,Cancel Goods Receipt,50,50,4.427,27.974,10.262,513.116
+Release Purchase Order,Change Price,49,38,0.000,1.092,0.386,18.937
+Cancel Goods Receipt,Change Delivery Indicator,48,48,2.084,21.291,6.416,307.972
+Clear Invoice,Record Service Entry Sheet,48,29,10.812,22.228,15.059,722.830
+Create Purchase Order Item,Change Delivery Indicator,46,46,6.904,46.549,14.848,682.992
+Clear Invoice,Cancel Goods Receipt,45,41,28.550,81.978,37.365,1681.412
+SRM: In Transfer to Execution Syst.,SRM: Transfer Failed (E.Sys.),44,44,0.000,0.000,0.000,0.001
+SRM: In Transfer to Execution Syst.,Create Purchase Order Item,44,44,0.000,0.000,0.000,0.001
+Vendor creates invoice,Change Approval for Purchase Order,43,40,5.560,60.303,25.501,1096.535
+Change Quantity,Reactivate Purchase Order Item,43,43,0.000,0.000,0.000,0.000
+Vendor creates debit memo,Cancel Goods Receipt,42,41,8.536,15.488,7.679,322.506
+Create Purchase Order Item,Vendor creates debit memo,42,42,2.515,12.719,7.529,316.212
+SRM: Change was Transmitted,SRM: In Transfer to Execution Syst.,42,42,0.001,0.003,0.002,0.073
+Update Order Confirmation,Vendor creates invoice,41,41,7.606,21.412,9.923,406.831
+Record Invoice Receipt,Release Purchase Order,39,38,3.837,6.943,6.269,244.498
+Remove Payment Block,Cancel Goods Receipt,38,38,0.567,25.303,8.568,325.592
+Release Purchase Order,Change Quantity,38,37,0.000,0.001,0.037,1.410
+Change Price,Cancel Invoice Receipt,37,37,6.063,41.878,19.330,715.196
+SRM: Ordered,SRM: Deleted,37,32,0.000,0.000,0.000,0.000
+Record Subsequent Invoice,Remove Payment Block,36,35,21.060,94.912,31.077,1118.787
+Change Delivery Indicator,Cancel Invoice Receipt,36,36,39.469,153.453,60.475,2177.085
+Vendor creates invoice,Reactivate Purchase Order Item,36,36,3.490,9.534,4.486,161.506
+Record Goods Receipt,Change Approval for Purchase Order,32,31,4.094,6.167,3.526,112.847
+Remove Payment Block,Cancel Subsequent Invoice,32,32,0.337,18.206,9.245,295.840
+Create Purchase Order Item,Block Purchase Order Item,30,30,18.690,77.048,38.453,1153.593
+Remove Payment Block,Release Purchase Order,30,30,16.335,18.562,12.057,361.718
+Set Payment Block,Clear Invoice,29,27,10.104,13.821,8.566,248.415
+Delete Purchase Order Item,Vendor creates invoice,28,28,8.371,35.336,10.719,300.135
+Record Goods Receipt,Release Purchase Order,28,28,4.088,6.945,5.896,165.078
+Clear Invoice,Change Delivery Indicator,28,28,12.443,64.069,30.790,862.113
+Record Invoice Receipt,Record Subsequent Invoice,27,27,1.802,37.465,11.735,316.858
+Change Storage Location,Change Storage Location,27,17,0.183,4.067,1.143,30.864
+Record Invoice Receipt,SRM: Created,27,26,6.750,11.314,7.415,200.194
+Vendor creates invoice,Record Subsequent Invoice,26,26,15.113,30.533,15.637,406.563
+Record Invoice Receipt,Record Service Entry Sheet,26,20,7.983,15.597,9.208,239.397
+Change Quantity,Vendor creates debit memo,25,25,1.576,41.797,10.989,274.724
+Record Invoice Receipt,Set Payment Block,25,25,21.126,89.037,36.760,919.000
+Vendor creates invoice,SRM: In Transfer to Execution Syst.,24,23,1.591,35.899,11.754,282.090
+Vendor creates invoice,Change Storage Location,24,24,0.636,7.711,3.067,73.607
+Cancel Invoice Receipt,Vendor creates invoice,23,21,1.656,13.191,4.719,108.528
+Change Price,Receive Order Confirmation,23,23,0.242,1.826,1.066,24.526
+Clear Invoice,SRM: Created,23,22,21.970,112.301,38.266,880.108
+Vendor creates invoice,Release Purchase Order,22,22,2.448,5.305,2.900,63.806
+Block Purchase Order Item,Change Quantity,22,22,0.501,5.503,1.244,27.374
+Change Price,Change Currency,22,22,0.000,0.000,0.000,0.000
+Change Price,Record Service Entry Sheet,21,18,0.000,0.077,0.019,0.390
+SRM: Deleted,Vendor creates invoice,21,18,4.346,27.372,9.529,200.100
+Cancel Invoice Receipt,Vendor creates debit memo,20,20,0.433,14.453,2.905,58.092
+Change Price,Release Purchase Order,20,18,9.644,23.493,12.624,252.482
+Change Currency,Vendor creates invoice,20,20,1.443,7.444,3.644,72.871
+Reactivate Purchase Order Item,Change Quantity,20,20,12.345,60.306,19.908,398.164
+Reactivate Purchase Order Item,Record Invoice Receipt,20,20,6.875,39.136,18.532,370.645
+Cancel Goods Receipt,Clear Invoice,20,19,19.176,67.628,27.061,541.222
+Receive Order Confirmation,Delete Purchase Order Item,19,19,0.632,5.350,2.241,42.572
+Record Invoice Receipt,Change Storage Location,18,18,2.406,6.921,2.982,53.681
+SRM: In Transfer to Execution Syst.,Record Goods Receipt,18,18,3.143,33.172,9.952,179.141
+Block Purchase Order Item,Vendor creates invoice,18,18,6.397,18.429,12.841,231.137
+Change Storage Location,Change Quantity,18,18,1.233,16.895,6.063,109.135
+Record Service Entry Sheet,Cancel Invoice Receipt,17,15,1.060,15.829,5.032,85.537
+SRM: Deleted,Record Invoice Receipt,17,16,5.092,16.697,6.631,112.724
+Delete Purchase Order Item,Change Quantity,16,16,0.064,4.150,4.767,76.277
+Change Price,Change Storage Location,16,16,0.000,18.110,3.449,55.183
+Create Purchase Order Item,SRM: Change was Transmitted,16,16,0.001,0.001,0.001,0.011
+SRM: Ordered,Create Purchase Order Item,16,16,0.000,0.000,0.000,0.000
+SRM: Change was Transmitted,Vendor creates invoice,16,16,3.494,21.795,8.364,133.817
+Update Order Confirmation,Change Quantity,15,15,1.095,9.072,4.423,66.349
+Cancel Goods Receipt,Remove Payment Block,15,15,0.591,25.320,6.818,102.266
+Cancel Invoice Receipt,Record Goods Receipt,15,13,3.683,9.467,4.649,69.737
+Remove Payment Block,Set Payment Block,14,14,60.925,68.423,43.549,609.686
+SRM: Deleted,Clear Invoice,14,14,7.964,19.660,11.639,162.953
+Record Service Entry Sheet,Remove Payment Block,14,14,2.396,7.891,3.279,45.908
+Cancel Invoice Receipt,Change Delivery Indicator,13,13,8.965,35.766,14.875,193.376
+Create Purchase Order Item,SRM: Created,13,13,21.931,62.938,25.161,327.089
+Change Price,Vendor creates debit memo,13,13,5.691,5.694,4.346,56.493
+SRM: In Transfer to Execution Syst.,Change Delivery Indicator,12,12,0.000,0.000,0.000,0.001
+Record Service Entry Sheet,SRM: Created,12,12,0.736,6.658,2.985,35.816
+Change Delivery Indicator,Change Price,12,12,5.768,25.209,10.600,127.195
+Vendor creates debit memo,Vendor creates debit memo,12,12,8.000,49.900,18.083,217.000
+Vendor creates invoice,Block Purchase Order Item,11,11,5.690,9.468,4.734,52.069
+Record Goods Receipt,Receive Order Confirmation,11,11,2.008,12.228,4.687,51.559
+Change Quantity,Cancel Goods Receipt,11,11,0.045,12.299,3.425,37.680
+Change Price,Change Delivery Indicator,11,11,0.160,3.993,1.244,13.682
+Change Quantity,Update Order Confirmation,11,10,1.782,2.888,2.057,22.625
+Change Price,Cancel Goods Receipt,11,11,0.884,6.778,1.806,19.865
+Vendor creates invoice,Update Order Confirmation,10,10,0.527,10.967,3.321,33.207
+Cancel Goods Receipt,Record Service Entry Sheet,10,10,0.025,4.286,1.136,11.363
+Change Storage Location,Change Price,10,10,27.023,27.125,23.909,239.086
+Change Quantity,Delete Purchase Order Item,10,10,7.595,15.420,7.491,74.908
+Set Payment Block,Remove Payment Block,10,10,15.008,49.864,24.474,244.736
+Record Goods Receipt,Block Purchase Order Item,10,10,6.397,23.320,8.913,89.128
+Cancel Invoice Receipt,Cancel Goods Receipt,10,10,7.614,23.890,11.673,116.734
+SRM: Created,Record Goods Receipt,9,9,0.062,0.080,0.063,0.565
+Cancel Goods Receipt,Change Price,9,9,0.082,2.241,0.689,6.197
+Change Approval for Purchase Order,Change Storage Location,9,9,15.069,26.970,19.615,176.534
+Change Price,Block Purchase Order Item,9,9,40.053,43.238,40.761,366.846
+Change Quantity,Change Storage Location,9,9,0.000,7.347,2.472,22.252
+Change Quantity,Release Purchase Order,9,6,0.019,0.064,0.038,0.342
+Change Quantity,Cancel Invoice Receipt,9,9,27.023,192.136,81.578,734.206
+Update Order Confirmation,Change Price,9,9,0.000,4.225,2.347,21.124
+Vendor creates invoice,Delete Purchase Order Item,9,9,1.447,8.469,3.902,35.120
+Vendor creates debit memo,SRM: Created,9,9,38.306,299.624,112.713,1014.414
+Cancel Invoice Receipt,Record Subsequent Invoice,9,9,0.048,1.829,1.017,9.154
+Remove Payment Block,Record Subsequent Invoice,8,8,6.286,25.954,11.988,95.902
+Record Invoice Receipt,Receive Order Confirmation,8,8,3.366,12.890,5.276,42.208
+SRM: In Transfer to Execution Syst.,Change Price,8,7,0.000,0.000,0.000,0.001
+SRM: Deleted,SRM: In Transfer to Execution Syst.,8,8,0.002,5.732,2.238,17.901
+Record Invoice Receipt,Block Purchase Order Item,8,8,6.515,16.648,7.310,58.483
+Record Service Entry Sheet,Vendor creates debit memo,7,7,0.440,4.274,1.651,11.560
+Record Service Entry Sheet,SRM: Complete,7,7,0.021,0.042,0.022,0.151
+Update Order Confirmation,Record Invoice Receipt,7,7,4.741,12.990,6.507,45.551
+Change Price,Record Subsequent Invoice,7,7,3.222,22.374,9.170,64.188
+Cancel Subsequent Invoice,Record Invoice Receipt,7,7,17.915,52.038,26.856,187.994
+Vendor creates debit memo,Change Delivery Indicator,7,7,5.371,11.369,5.370,37.587
+Release Purchase Order,Vendor creates invoice,6,6,0.259,10.931,3.811,22.867
+Change Storage Location,Clear Invoice,6,6,48.507,48.507,48.507,291.042
+SRM: Ordered,SRM: In Transfer to Execution Syst.,6,6,0.001,0.001,0.001,0.004
+Record Invoice Receipt,SRM: In Transfer to Execution Syst.,6,6,3.232,16.144,6.954,41.726
+Update Order Confirmation,Update Order Confirmation,6,5,5.497,7.725,4.423,26.535
+Record Invoice Receipt,Update Order Confirmation,6,6,4.917,37.702,15.804,94.824
+Record Goods Receipt,Change Storage Location,6,6,0.174,0.602,0.279,1.674
+Reactivate Purchase Order Item,Block Purchase Order Item,6,5,4.148,7.215,3.968,23.808
+SRM: In Transfer to Execution Syst.,SRM: Change was Transmitted,6,6,0.000,0.000,0.000,0.000
+Cancel Subsequent Invoice,Record Subsequent Invoice,6,6,0.842,37.075,12.640,75.840
+Vendor creates debit memo,Record Subsequent Invoice,5,5,1.669,3.176,1.873,9.366
+Vendor creates debit memo,Record Service Entry Sheet,5,4,3.538,30.835,12.617,63.085
+SRM: In Transfer to Execution Syst.,SRM: Created,5,5,4.803,13.972,7.859,39.294
+Cancel Subsequent Invoice,Vendor creates debit memo,5,5,6.385,11.236,6.781,33.906
+SRM: Document Completed,Vendor creates invoice,5,5,6.374,22.717,9.681,48.407
+Remove Payment Block,Record Service Entry Sheet,5,5,0.025,7.175,2.653,13.265
+Change Storage Location,Record Invoice Receipt,5,5,14.222,20.641,14.295,71.476
+Update Order Confirmation,Clear Invoice,5,5,51.076,62.359,54.837,274.184
+Change Delivery Indicator,Cancel Goods Receipt,5,5,0.017,0.302,0.110,0.551
+Cancel Invoice Receipt,Change Price,5,5,0.932,6.177,2.827,14.135
+Reactivate Purchase Order Item,Receive Order Confirmation,5,5,0.024,0.047,0.033,0.164
+Record Subsequent Invoice,Cancel Subsequent Invoice,5,5,0.003,7.350,2.456,12.282
+Record Goods Receipt,Cancel Subsequent Invoice,5,5,3.153,17.878,7.593,37.965
+Cancel Goods Receipt,SRM: Created,4,4,0.008,0.008,0.008,0.031
+SRM: Held,SRM: Complete,4,4,1.387,9.197,3.755,15.020
+Vendor creates invoice,Cancel Subsequent Invoice,4,3,7.031,48.935,20.339,81.358
+Vendor creates debit memo,Reactivate Purchase Order Item,4,4,2.562,3.486,2.320,9.281
+SRM: Incomplete,SRM: Held,4,4,0.000,0.000,0.000,0.000
+SRM: Deleted,Change Final Invoice Indicator,4,4,0.000,0.000,0.000,0.000
+Create Purchase Order Item,SRM: In Transfer to Execution Syst.,4,4,15.389,86.766,36.338,145.351
+Change Storage Location,Receive Order Confirmation,4,4,2.108,4.423,2.302,9.208
+Change Final Invoice Indicator,Clear Invoice,4,4,15.981,15.981,15.981,63.925
+SRM: Created,SRM: Incomplete,4,4,0.063,0.083,0.063,0.251
+Receive Order Confirmation,Change Storage Location,4,4,4.351,11.886,6.667,26.669
+Change Price,Cancel Subsequent Invoice,4,4,0.191,3.692,1.394,5.578
+SRM: Deleted,SRM: Created,4,4,6.492,22.241,10.493,41.971
+Receive Order Confirmation,Change Delivery Indicator,3,3,0.001,2.617,1.091,3.272
+Cancel Invoice Receipt,Cancel Subsequent Invoice,3,3,0.359,4.729,2.060,6.181
+Change Quantity,SRM: Deleted,3,3,0.000,0.000,0.000,0.000
+Change Final Invoice Indicator,Change Delivery Indicator,3,3,0.000,0.000,0.000,0.000
+Vendor creates invoice,Create Purchase Requisition Item,3,3,73.001,142.601,78.334,235.002
+SRM: Change was Transmitted,Record Goods Receipt,3,3,11.994,12.149,10.030,30.091
+Release Purchase Order,Clear Invoice,3,3,9.130,9.130,9.130,27.390
+Change Delivery Indicator,SRM: Deleted,3,3,0.000,0.000,0.000,0.000
+Change Approval for Purchase Order,Remove Payment Block,3,3,1.776,2.146,1.380,4.140
+Cancel Subsequent Invoice,Cancel Invoice Receipt,3,3,0.690,13.095,5.630,16.889
+Cancel Subsequent Invoice,Record Goods Receipt,3,3,2.688,3.096,2.030,6.090
+SRM: In Transfer to Execution Syst.,SRM: In Transfer to Execution Syst.,3,3,4.847,4.847,3.231,9.694
+SRM: Document Completed,Record Invoice Receipt,3,3,0.019,0.022,0.019,0.056
+Clear Invoice,Set Payment Block,3,3,0.774,0.774,0.560,1.680
+Record Subsequent Invoice,Vendor creates invoice,3,3,0.007,5.215,2.177,6.531
+SRM: Deleted,Change Price,3,3,0.001,0.001,0.001,0.002
+Receive Order Confirmation,Clear Invoice,3,3,69.056,76.451,63.856,191.568
+Remove Payment Block,Change Approval for Purchase Order,3,3,15.182,15.182,15.182,45.546
+Cancel Goods Receipt,SRM: Complete,2,2,0.004,0.006,0.004,0.008
+Cancel Subsequent Invoice,Change Price,2,2,27.994,27.994,27.994,55.989
+Block Purchase Order Item,Clear Invoice,2,2,51.057,51.921,51.057,102.114
+Cancel Goods Receipt,Change Storage Location,2,2,0.002,0.003,0.002,0.003
+Cancel Subsequent Invoice,Vendor creates invoice,2,2,3.516,5.094,3.516,7.032
+SRM: Held,SRM: Incomplete,2,2,0.000,0.000,0.000,0.000
+Cancel Subsequent Invoice,Cancel Subsequent Invoice,2,2,3.486,6.273,3.486,6.972
+Delete Purchase Order Item,Change Price,2,2,6.024,10.834,6.024,12.047
+Clear Invoice,SRM: Complete,2,2,0.044,0.047,0.044,0.089
+Create Purchase Order Item,Change Payment Term,2,2,0.028,0.050,0.028,0.056
+Clear Invoice,Change Storage Location,2,2,69.176,69.183,69.176,138.353
+Change Delivery Indicator,Cancel Subsequent Invoice,2,2,18.021,32.391,18.021,36.042
+Update Order Confirmation,Receive Order Confirmation,2,2,0.517,0.922,0.517,1.035
+SRM: Incomplete,SRM: Complete,2,2,1.387,2.016,1.387,2.774
+SRM: Ordered,Change Final Invoice Indicator,2,2,0.000,0.000,0.000,0.000
+Change Currency,Create Purchase Order Item,2,2,121.602,122.713,121.602,243.205
+Vendor creates debit memo,Create Purchase Requisition Item,2,2,35.001,45.401,35.001,70.001
+Cancel Invoice Receipt,Change Quantity,2,2,4.476,6.405,4.476,8.952
+Change Currency,Change Price,2,2,2.024,2.969,2.024,4.048
+Block Purchase Order Item,Delete Purchase Order Item,2,2,0.794,0.794,0.794,1.587
+Change Quantity,Cancel Subsequent Invoice,2,2,23.224,23.224,23.224,46.447
+Record Subsequent Invoice,Cancel Invoice Receipt,2,2,3.369,6.062,3.369,6.738
+SRM: Created,Clear Invoice,2,2,0.041,0.042,0.041,0.081
+SRM: Created,Cancel Goods Receipt,2,2,0.081,0.082,0.081,0.162
+Record Subsequent Invoice,Change Price,2,2,21.423,37.872,21.423,42.847
+Change Delivery Indicator,Reactivate Purchase Order Item,2,2,0.000,0.000,0.000,0.000
+Reactivate Purchase Order Item,Change Delivery Indicator,2,2,0.000,0.001,0.000,0.001
+Record Goods Receipt,SRM: Complete,2,2,0.017,0.025,0.017,0.034
+Reactivate Purchase Order Item,Delete Purchase Order Item,2,2,3.035,5.463,3.035,6.070
+Change Payment Term,Record Goods Receipt,2,2,37.552,61.102,37.552,75.105
+Record Service Entry Sheet,SRM: In Transfer to Execution Syst.,2,2,15.025,26.817,15.025,30.051
+Clear Invoice,Block Purchase Order Item,2,2,5.030,5.050,5.030,10.060
+SRM: Created,SRM: In Transfer to Execution Syst.,2,2,0.036,0.052,0.036,0.072
+SRM: Created,SRM: Held,2,2,0.062,0.079,0.062,0.125
+SRM: Ordered,Record Goods Receipt,1,1,0.000,0.000,0.000,0.000
+Set Payment Block,Change Price,1,1,0.629,0.629,0.629,0.629
+SRM: Transaction Completed,Change Delivery Indicator,1,1,0.000,0.000,0.000,0.000
+Set Payment Block,Cancel Invoice Receipt,1,1,1.174,1.174,1.174,1.174
+Change Rejection Indicator,Reactivate Purchase Order Item,1,1,0.000,0.000,0.000,0.000
+Change Rejection Indicator,Change Rejection Indicator,1,1,0.249,0.249,0.249,0.249
+Change Storage Location,Cancel Goods Receipt,1,1,0.000,0.000,0.000,0.000
+Vendor creates debit memo,Receive Order Confirmation,1,1,0.601,0.601,0.601,0.601
+Change Storage Location,Delete Purchase Order Item,1,1,1.092,1.092,1.092,1.092
+Change Delivery Indicator,Block Purchase Order Item,1,1,26.049,26.049,26.049,26.049
+SRM: In Transfer to Execution Syst.,Vendor creates invoice,1,1,61.409,61.409,61.409,61.409
+SRM: Ordered,Change Quantity,1,1,0.000,0.000,0.000,0.000
+Set Payment Block,Cancel Subsequent Invoice,1,1,14.244,14.244,14.244,14.244
+Change Delivery Indicator,Record Subsequent Invoice,1,1,0.955,0.955,0.955,0.955
+Change Delivery Indicator,Delete Purchase Order Item,1,1,0.000,0.000,0.000,0.000
+Change Delivery Indicator,Change Storage Location,1,1,0.101,0.101,0.101,0.101
+Reactivate Purchase Order Item,Clear Invoice,1,1,7.056,7.056,7.056,7.056
+Record Invoice Receipt,SRM: Complete,1,1,0.047,0.047,0.047,0.047
+Record Goods Receipt,Update Order Confirmation,1,1,0.053,0.053,0.053,0.053
+Record Invoice Receipt,Delete Purchase Order Item,1,1,4.732,4.732,4.732,4.732
+Change Delivery Indicator,SRM: Created,1,1,0.017,0.017,0.017,0.017
+Change Price,Reactivate Purchase Order Item,1,1,0.000,0.000,0.000,0.000
+Change Price,Change Final Invoice Indicator,1,1,0.000,0.000,0.000,0.000
+Change Price,Update Order Confirmation,1,1,0.004,0.004,0.004,0.004
+Change Price,Change Payment Term,1,1,0.000,0.000,0.000,0.000
+Reactivate Purchase Order Item,Change Storage Location,1,1,0.249,0.249,0.249,0.249
+Change Payment Term,Change Currency,1,1,0.000,0.000,0.000,0.000
+Reactivate Purchase Order Item,Remove Payment Block,1,1,1.044,1.044,1.044,1.044
+SRM: Created,Record Invoice Receipt,1,1,0.037,0.037,0.037,0.037
+Remove Payment Block,Update Order Confirmation,1,1,3.824,3.824,3.824,3.824
+Remove Payment Block,Receive Order Confirmation,1,1,0.433,0.433,0.433,0.433
+Release Purchase Order,Remove Payment Block,1,1,0.273,0.273,0.273,0.273
+Record Subsequent Invoice,Record Subsequent Invoice,1,1,0.001,0.001,0.001,0.001
+Record Subsequent Invoice,Record Goods Receipt,1,1,0.190,0.190,0.190,0.190
+Record Service Entry Sheet,SRM: Deleted,1,1,0.000,0.000,0.000,0.000
+Record Service Entry Sheet,Cancel Subsequent Invoice,1,1,0.518,0.518,0.518,0.518
+Record Goods Receipt,Reactivate Purchase Order Item,1,1,0.000,0.000,0.000,0.000
+SRM: Deleted,Change Delivery Indicator,1,1,0.000,0.000,0.000,0.000
+Create Purchase Order Item,Change Currency,1,1,0.000,0.000,0.000,0.000
+SRM: Created,SRM: Created,1,1,0.038,0.038,0.038,0.038
+SRM: Deleted,SRM: Complete,1,1,0.025,0.025,0.025,0.025
+Change Storage Location,Remove Payment Block,1,1,11.209,11.209,11.209,11.209
+SRM: Deleted,SRM: Transaction Completed,1,1,0.000,0.000,0.000,0.000
+Delete Purchase Order Item,Change Delivery Indicator,1,1,0.001,0.001,0.001,0.001
+SRM: Document Completed,SRM: Created,1,1,0.001,0.001,0.001,0.001
+SRM: Document Completed,Clear Invoice,1,1,0.078,0.078,0.078,0.078
+SRM: Document Completed,Cancel Goods Receipt,1,1,0.333,0.333,0.333,0.333
+Reactivate Purchase Order Item,Cancel Goods Receipt,1,1,0.034,0.034,0.034,0.034
+Delete Purchase Order Item,Change Rejection Indicator,1,1,0.000,0.000,0.000,0.000
+Create Purchase Order Item,SRM: Complete,1,1,0.037,0.037,0.037,0.037
+Delete Purchase Order Item,Change Approval for Purchase Order,1,1,0.020,0.020,0.020,0.020
+SRM: In Transfer to Execution Syst.,SRM: Complete,1,1,0.028,0.028,0.028,0.028
+SRM: In Transfer to Execution Syst.,Record Invoice Receipt,1,1,19.165,19.165,19.165,19.165
+SRM: In Transfer to Execution Syst.,Cancel Goods Receipt,1,1,0.041,0.041,0.041,0.041
+Change Currency,Change Approval for Purchase Order,1,1,0.001,0.001,0.001,0.001
+Change Currency,Change Quantity,1,1,105.278,105.278,105.278,105.278
+Cancel Goods Receipt,SRM: In Transfer to Execution Syst.,1,1,0.402,0.402,0.402,0.402
+Block Purchase Order Item,Vendor creates debit memo,1,1,54.397,54.397,54.397,54.397
+Cancel Goods Receipt,Delete Purchase Order Item,1,1,0.004,0.004,0.004,0.004
+Cancel Goods Receipt,Release Purchase Order,1,1,0.016,0.016,0.016,0.016
