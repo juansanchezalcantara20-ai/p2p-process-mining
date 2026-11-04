@@ -507,11 +507,149 @@ is a question for the process owner, not something the data can settle.
 """
 
 
+def _rules_md(rules: list[dict], base: float) -> str:
+    df = pd.DataFrame(rules)
+    df = pd.DataFrame(
+        {
+            "If...": df["rule"],
+            "Items": df["cases"].astype(int),
+            "Flagged rate": [pct(x) for x in df["rate"]],
+            "vs average": [f"×{x:.2f}" for x in df["lift"]],
+        }
+    )
+    return md_table(df)
+
+
+def _lifts_md(lifts: list[dict]) -> str:
+    df = pd.DataFrame(lifts)
+    df = pd.DataFrame(
+        {
+            "Attribute": df["attribute"],
+            "Value": [("yes" if v == "True" else v) for v in df["value"]],
+            "Items": df["cases"].astype(int),
+            "Rate": [pct(x) for x in df["rate"]],
+            "Lift": [f"×{x:.2f}" for x in df["lift"]],
+        }
+    )
+    return md_table(df)
+
+
+def page_rootcause(paths) -> str | None:
+    s = _load(paths, "rootcause/rootcause_summary.json")
+    if s is None:
+        return None
+    so, sp, do = s["slow_order"], s["slow_process"], s["deviation_order"]
+    hp, rest = s["hotspot_profile"]["hotspot"], s["hotspot_profile"]["rest"]
+    bm = s["behaviour_medians"]
+    beh = pd.DataFrame(
+        [
+            {
+                "Behaviour": k.replace("_", " "),
+                "Share of items": pct(v["share"]),
+                "Median cycle (days)": round(v["median_days"], 1),
+            }
+            for k, v in bm.items()
+        ]
+    ).sort_values("Median cycle (days)", ascending=False)
+    return f"""# 5 · Root cause: what goes with slow items and deviations?
+
+> **Question.** Which characteristics of a purchase-order item make it more likely to be
+> slow, or to break a control? And what happens to the slow ones along the way?
+
+**Definitions.** A *slow* item is a completed invoice item in the top quartile of cycle time:
+more than **{n(s["slow_threshold_days"])} days** from PO to payment (mature cohort,
+{n(s["slow_cases"])} items, so {pct(so["base_rate"], 0)} are slow by construction). A
+*deviating* item breaks at least one of the phase-4 rules ({pct(do["base_rate"])} of completed
+items).
+
+**Method, in plain words.** For every attribute value we compare the share of slow items with
+the average (*lift*: ×2.0 means "twice as likely as a typical item"). Then a three-question
+decision tree finds the combinations that separate slow from normal items best. Three
+questions is deliberately few: every branch can be read aloud and checked by the process
+owner. We keep **order-time attributes** (known when the PO is raised) separate from
+**process behaviours** (what happens afterwards), because the latter are partly a consequence
+of slowness rather than a cause.
+
+## 1. Who is slow? (order-time attributes)
+
+{_lifts_md(so["top_lifts"][:6])}
+
+![Lift slow order](assets/figures/lift_slow_order.png)
+
+The tree's answer:
+
+{_rules_md(so["top_rules"] + so["bottom_rules"], so["base_rate"])}
+
+**In business language:** *low-value items bought from the very largest vendors are the slow
+ones.* The segment "top vendor (> 5,000 items a year) and item value below EUR 500" holds
+**{n(hp["cases"])} items from just {hp["vendors"]} vendors**, {pct(hp["spend_area_top"].get("Packaging", 0), 0)}
+of them in Packaging. **{pct(hp["slow_share"], 0)} of them are slow, against
+{pct(rest["slow_share"], 0)} for everything else.**
+
+Where their time goes:
+
+| | Hotspot ({hp["vendors"]} vendors) | All other items |
+| --- | --- | --- |
+| Items | {n(hp["cases"])} | {n(rest["cases"])} |
+| Median cycle time | {n(hp["median_cycle_days"])} days | {n(rest["median_cycle_days"])} days |
+| Median PO → goods receipt | {n(hp["median_po_to_gr_days"])} days | {n(rest["median_po_to_gr_days"])} days |
+| **Median matched → cleared** | **{n(hp["median_match_to_clear_days"])} days** | {n(rest["median_match_to_clear_days"])} days |
+| Payment-block share | {pct(hp["payment_block_share"])} | {pct(rest["payment_block_share"])} |
+
+Delivery is only a few days slower; the difference is almost entirely **after the invoice is
+matched**. Two explanations fit the data and the data alone cannot choose between them:
+(a) these vendors invoice many small items that are paid in a periodic batch or under a long
+agreed payment term, or (b) small-value invoices from big vendors are deprioritised in
+accounts payable. Both are worth checking with AP, and both point to the same remedies:
+consolidated or self-billing invoicing (evaluated receipt settlement) for high-volume,
+low-value lines - see phase 6.
+
+Tree quality on a 30% hold-out: balanced accuracy {so["metrics"]["balanced_accuracy_test"]:.2f},
+ROC AUC {so["metrics"]["roc_auc_test"]:.2f}. That is a useful *signal*, not a forecast:
+order-time attributes explain part of the slowness, the rest happens during execution.
+
+## 2. What happens to slow items? (process behaviour)
+
+{_lifts_md(sp["top_lifts"][:6])}
+
+![Lift slow process](assets/figures/lift_slow_process.png)
+
+{_rules_md(sp["top_rules"] + sp["bottom_rules"], sp["base_rate"])}
+
+Items with **none** of these behaviours ({pct(s["share_no_behaviour"])} of the cohort) take a
+median of **{n(s["median_no_behaviour"])} days**. Each behaviour adds time:
+
+{md_table(beh)}
+
+**In business language:** a quantity change after the order and a payment block are the two
+behaviours most associated with slowness; items that hit both are slow
+{pct(sp["top_rules"][0]["rate"], 0)} of the time. Vendor invoices dated before the PO are fast
+(the work was already done when the PO was raised) - a control issue, not a speed issue.
+
+## 3. Who deviates? (order-time attributes)
+
+{_lifts_md(do["top_lifts"][:6])}
+
+{_rules_md(do["top_rules"] + do["bottom_rules"], do["base_rate"])}
+
+Deviations are spread widely (hold-out ROC AUC {do["metrics"]["roc_auc_test"]:.2f}): no single
+segment owns them, apart from consignment, which almost never deviates because it has no
+invoice step. Higher-value items and *Trading & End Products* deviate more often - consistent
+with more negotiation (price and quantity changes) on larger purchases.
+
+!!! warning "Association, not causation"
+    These are patterns in historical data. They tell the improvement team *where to look* and
+    *which hypotheses to test*; they do not prove that changing an attribute would change the
+    outcome. Each hypothesis above is phrased so it can be checked with the process owner.
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
     "02-discovery.md": page_discovery,
     "03-performance.md": page_performance,
     "04-conformance.md": page_conformance,
+    "05-root-cause.md": page_rootcause,
 }
 
 

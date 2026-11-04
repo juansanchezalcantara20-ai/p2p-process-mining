@@ -1,0 +1,7 @@
+rule,cases,rate,lift
+payment was blocked AND quantity changed after the PO AND goods arrived before the invoice was posted,2850,0.5249,2.1001
+no payment block AND quantity changed after the PO,7411,0.4137,1.6552
+no payment block AND no quantity change AND invoiced in several invoices,3175,0.3924,1.5701
+payment was blocked AND no quantity change AND goods arrived before the invoice was posted,26873,0.3749,1.4998
+payment was blocked AND invoice posted before the goods arrived,12480,0.2814,1.1259
+no payment block AND no quantity change AND a single invoice,99866,0.1879,0.7516

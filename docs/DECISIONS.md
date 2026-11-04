@@ -64,3 +64,14 @@ Newest phase last.
 | K6 | Headline conformance is reported on **completed cases**; the all-cases figure is shown too. | An open case is non-conforming only because it has not finished, which is not a deviation. |
 | K7 | **Impact ranking = average rank of (cases affected, PO value affected, excess case-days).** Excess days compare medians *within the same item category* on the mature cohort. | Scale-free and transparent: no arbitrary weights. Within-category comparison prevents blaming a rule for the pace of the category it applies to. |
 | K8 | Negative "excess days" are reported as they are, not hidden. | After-the-fact POs and payment without full match are faster than peers - the speed comes from skipping the control. That changes the argument for fixing them (audit risk, not time). |
+
+## Phase 5 · Root cause
+
+| # | Decision | Why |
+|---|---|---|
+| C1 | **"Slow" = top quartile of cycle time** (> P75) among completed invoice items of the mature cohort. | A relative, data-derived threshold needs no invented SLA; the top quartile is where suppliers feel the pain. |
+| C2 | **Lift tables + depth-3 decision trees** (class-balanced, min. leaf 1% of training cases), not a black-box model. | The audience is a process owner. A three-question tree can be read aloud and verified; a lift of ×2 is understood without statistics training. Accuracy is reported on a 30% hold-out to show how much (and how little) it explains. |
+| C3 | **Order-time attributes and process behaviours are modelled separately.** | Process behaviours (blocks, changes) are partly consequences of slowness; mixing them with order-time attributes would let the tree "explain" delay with its symptoms. |
+| C4 | Spend area grouped to the top 10 + *Other*; vendor size bucketed by yearly item volume (<50, 50-500, 500-5k, >5k); PO value in quartiles. | Keeps branches readable and avoids one-vendor leaves that cannot generalise. |
+| C5 | Tree leaves are rewritten as **value sets** ("PO item value is Q1 or Q2") instead of chains of one-hot negations. | "Not Q4 and not Q3" is how the algorithm thinks, not how a manager reads. |
+| C6 | The hotspot segment found by the tree is **profiled stage by stage** before any conclusion is drawn. | Shows *where* the extra time sits (after matching, not in delivery) and keeps two competing explanations open rather than picking one the data cannot prove. |

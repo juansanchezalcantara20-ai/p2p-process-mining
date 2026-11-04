@@ -1,0 +1,418 @@
+{
+  "slow_threshold_days": 110.83125,
+  "slow_cases": 152655,
+  "slow_order": {
+    "base_rate": 0.24994268120926272,
+    "cases": 152655,
+    "metrics": {
+      "balanced_accuracy_test": 0.6814900429026172,
+      "roc_auc_test": 0.7543021702831695,
+      "train_cases": 106858,
+      "test_cases": 45797
+    },
+    "importance": {
+      "vendor_size": 0.6276,
+      "po_value_band": 0.2197,
+      "spend_area": 0.1527,
+      "document_type": 0.0,
+      "item_type": 0.0,
+      "item_category": 0.0
+    },
+    "top_lifts": [
+      {
+        "attribute": "item type",
+        "value": "Subcontracting",
+        "cases": 1540,
+        "rate": 0.5545454545454546,
+        "lift": 2.2186905088097593
+      },
+      {
+        "attribute": "vendor size",
+        "value": "top (>5k items)",
+        "cases": 38353,
+        "rate": 0.5030636456079055,
+        "lift": 2.0127160482315505
+      },
+      {
+        "attribute": "spend area",
+        "value": "Packaging",
+        "cases": 68051,
+        "rate": 0.38659240863470046,
+        "lift": 1.5467242599955497
+      },
+      {
+        "attribute": "item type",
+        "value": "Service",
+        "cases": 2138,
+        "rate": 0.32273152478952294,
+        "lift": 1.2912221443256355
+      },
+      {
+        "attribute": "PO item value",
+        "value": "Q2 (EUR 144-497)",
+        "cases": 41705,
+        "rate": 0.30929145186428486,
+        "lift": 1.2374495238983725
+      },
+      {
+        "attribute": "spend area",
+        "value": "Trading & End Products",
+        "cases": 14071,
+        "rate": 0.2738966669035605,
+        "lift": 1.0958379160310059
+      },
+      {
+        "attribute": "vendor size",
+        "value": "small (<50 items)",
+        "cases": 8248,
+        "rate": 0.25484966052376334,
+        "lift": 1.0196324184839496
+      },
+      {
+        "attribute": "PO item value",
+        "value": "Q3 (EUR 497-1,964)",
+        "cases": 41027,
+        "rate": 0.2521997708825895,
+        "lift": 1.0090304291464212
+      }
+    ],
+    "top_rules": [
+      {
+        "rule": "vendor size is top (>5k items) AND PO item value is Q1 (< EUR 144) or Q2 (EUR 144-497)",
+        "cases": 21714,
+        "rate": 0.635488624850327,
+        "lift": 2.5425374400871883
+      },
+      {
+        "rule": "vendor size is top (>5k items) AND PO item value is Q3 (EUR 497-1,964)",
+        "cases": 10619,
+        "rate": 0.42574630379508427,
+        "lift": 1.7033757569345718
+      },
+      {
+        "rule": "spend area is not Sales AND vendor size is not top (>5k items) AND PO item value is not Q1 (< EUR 144)",
+        "cases": 60604,
+        "rate": 0.2362550326711108,
+        "lift": 0.9452368500172564
+      },
+      {
+        "rule": "vendor size is top (>5k items) AND PO item value is Q4 (> EUR 1,964)",
+        "cases": 6020,
+        "rate": 0.16179401993355483,
+        "lift": 0.6473244951633288
+      }
+    ],
+    "bottom_rules": [
+      {
+        "rule": "spend area is not Sales AND vendor size is not top (>5k items) AND PO item value is Q1 (< EUR 144)",
+        "cases": 11131,
+        "rate": 0.08507771089749348,
+        "lift": 0.34038888630734815
+      },
+      {
+        "rule": "spend area is Sales AND vendor size is not top (>5k items) AND PO item value is Q1 (< EUR 144)",
+        "cases": 12076,
+        "rate": 0.03933421662802252,
+        "lift": 0.1573729482204371
+      }
+    ]
+  },
+  "slow_process": {
+    "base_rate": 0.24994268120926272,
+    "cases": 152655,
+    "metrics": {
+      "balanced_accuracy_test": 0.608348993761388,
+      "roc_auc_test": 0.6170634042926014,
+      "train_cases": 106858,
+      "test_cases": 45797
+    },
+    "importance": {
+      "payment_block": 0.5211,
+      "quantity_change": 0.3012,
+      "multiple_invoices": 0.1169,
+      "invoice_before_goods": 0.0608,
+      "multiple_goods_receipts": 0.0,
+      "invoice_cancelled": 0.0
+    },
+    "top_lifts": [
+      {
+        "attribute": "an invoice receipt was cancelled",
+        "value": "True",
+        "cases": 5055,
+        "rate": 0.5016815034619189,
+        "lift": 2.007186211793454
+      },
+      {
+        "attribute": "invoiced in several invoices",
+        "value": "True",
+        "cases": 7892,
+        "rate": 0.4605930055752661,
+        "lift": 1.8427945293170553
+      },
+      {
+        "attribute": "quantity changed after the PO",
+        "value": "True",
+        "cases": 11244,
+        "rate": 0.4414799003913198,
+        "lift": 1.7663245759202444
+      },
+      {
+        "attribute": "price changed after the PO",
+        "value": "True",
+        "cases": 7837,
+        "rate": 0.415975500829399,
+        "lift": 1.6642835822071
+      },
+      {
+        "attribute": "payment was blocked",
+        "value": "True",
+        "cases": 42203,
+        "rate": 0.3573679596237234,
+        "lift": 1.4297996560440178
+      },
+      {
+        "attribute": "goods arrived in several receipts",
+        "value": "True",
+        "cases": 6356,
+        "rate": 0.32158590308370044,
+        "lift": 1.2866386066109892
+      },
+      {
+        "attribute": "invoice posted before the goods arrived",
+        "value": "True",
+        "cases": 12816,
+        "rate": 0.2773876404494382,
+        "lift": 1.1098050125228407
+      },
+      {
+        "attribute": "vendor invoice dated before the PO",
+        "value": "True",
+        "cases": 2355,
+        "rate": 0.061146496815286625,
+        "lift": 0.24464207761335552
+      }
+    ],
+    "top_rules": [
+      {
+        "rule": "payment was blocked AND quantity changed after the PO AND goods arrived before the invoice was posted",
+        "cases": 2850,
+        "rate": 0.5249122807017544,
+        "lift": 2.100130630599563
+      },
+      {
+        "rule": "no payment block AND quantity changed after the PO",
+        "cases": 7411,
+        "rate": 0.41370935096478206,
+        "lift": 1.6552169039845055
+      },
+      {
+        "rule": "no payment block AND no quantity change AND invoiced in several invoices",
+        "cases": 3175,
+        "rate": 0.39244094488188974,
+        "lift": 1.5701237699107555
+      },
+      {
+        "rule": "payment was blocked AND no quantity change AND goods arrived before the invoice was posted",
+        "cases": 26873,
+        "rate": 0.3748744092583634,
+        "lift": 1.4998415134408456
+      }
+    ],
+    "bottom_rules": [
+      {
+        "rule": "payment was blocked AND invoice posted before the goods arrived",
+        "cases": 12480,
+        "rate": 0.2814102564102564,
+        "lift": 1.1258991663558562
+      },
+      {
+        "rule": "no payment block AND no quantity change AND a single invoice",
+        "cases": 99866,
+        "rate": 0.18786173472453088,
+        "lift": 0.7516192665279324
+      }
+    ]
+  },
+  "deviation_order": {
+    "base_rate": 0.3486022913589271,
+    "cases": 197001,
+    "metrics": {
+      "balanced_accuracy_test": 0.5901704045895366,
+      "roc_auc_test": 0.6015840063268616,
+      "train_cases": 137900,
+      "test_cases": 59101
+    },
+    "importance": {
+      "item_category": 0.6276,
+      "spend_area": 0.2184,
+      "po_value_band": 0.154,
+      "document_type": 0.0,
+      "item_type": 0.0,
+      "has_requisition": 0.0
+    },
+    "top_lifts": [
+      {
+        "attribute": "spend area",
+        "value": "Trading & End Products",
+        "cases": 17013,
+        "rate": 0.47069887732910126,
+        "lift": 1.3502460798356064
+      },
+      {
+        "attribute": "PO item value",
+        "value": "Q4 (> EUR 1,964)",
+        "cases": 48503,
+        "rate": 0.44720945096179615,
+        "lift": 1.2828643472722943
+      },
+      {
+        "attribute": "spend area",
+        "value": "Latex & Monomers",
+        "cases": 4199,
+        "rate": 0.4174803524648726,
+        "lift": 1.1975835007780469
+      },
+      {
+        "attribute": "vendor size",
+        "value": "small (<50 items)",
+        "cases": 10440,
+        "rate": 0.40660919540229884,
+        "lift": 1.166398516249702
+      },
+      {
+        "attribute": "spend area",
+        "value": "CAPEX & SOCS",
+        "cases": 5302,
+        "rate": 0.3926820067898906,
+        "lift": 1.1264470042899926
+      },
+      {
+        "attribute": "PO item value",
+        "value": "Q3 (EUR 497-1,964)",
+        "cases": 49399,
+        "rate": 0.38697139618210896,
+        "lift": 1.110065555431695
+      },
+      {
+        "attribute": "vendor size",
+        "value": "top (>5k items)",
+        "cases": 42356,
+        "rate": 0.38188214184531116,
+        "lift": 1.0954665282223246
+      },
+      {
+        "attribute": "item category",
+        "value": "3-way match, invoice before GR",
+        "cases": 173588,
+        "rate": 0.36761757725188376,
+        "lift": 1.0545472200392916
+      }
+    ],
+    "top_rules": [
+      {
+        "rule": "item category is not Consignment AND spend area is not Sales AND PO item value is not Q1 (< EUR 144)",
+        "cases": 107848,
+        "rate": 0.42239077219790816,
+        "lift": 1.2116695233164922
+      },
+      {
+        "rule": "item category is 2-way match or 3-way match, invoice after GR AND spend area is Sales",
+        "cases": 2291,
+        "rate": 0.4168485377564382,
+        "lift": 1.1957710780714392
+      },
+      {
+        "rule": "item category is 3-way match, invoice before GR AND spend area is Sales",
+        "cases": 53253,
+        "rate": 0.2878523275683999,
+        "lift": 0.8257327467535835
+      },
+      {
+        "rule": "item category is not Consignment AND spend area is not Sales AND PO item value is Q1 (< EUR 144)",
+        "cases": 20151,
+        "rate": 0.28643739764775944,
+        "lift": 0.8216738809465782
+      }
+    ],
+    "bottom_rules": [
+      {
+        "rule": "item category is Consignment AND spend area is not Additives / Packaging",
+        "cases": 3033,
+        "rate": 0.09099901088031652,
+        "lift": 0.26103962347918797
+      },
+      {
+        "rule": "item category is Consignment AND spend area is Packaging",
+        "cases": 8019,
+        "rate": 0.06846240179573512,
+        "lift": 0.1963911411162958
+      }
+    ]
+  },
+  "median_no_behaviour": 73.43819444444445,
+  "share_no_behaviour": 0.6080115292653369,
+  "behaviour_medians": {
+    "payment_block": {
+      "share": 0.27645999148406536,
+      "median_days": 93.06041666666667
+    },
+    "price_change": {
+      "share": 0.05133798434378173,
+      "median_days": 98.04444444444445
+    },
+    "quantity_change": {
+      "share": 0.07365628377714455,
+      "median_days": 104.15138888888889
+    },
+    "invoice_cancelled": {
+      "share": 0.033113884248796306,
+      "median_days": 111.03541666666666
+    },
+    "multiple_goods_receipts": {
+      "share": 0.04163636959156267,
+      "median_days": 91.85729166666667
+    },
+    "multiple_invoices": {
+      "share": 0.05169827388555894,
+      "median_days": 105.26944444444445
+    },
+    "invoice_before_goods": {
+      "share": 0.08395401395303134,
+      "median_days": 80.2670138888889
+    },
+    "after_the_fact_po": {
+      "share": 0.015426943107005995,
+      "median_days": 37.19166666666667
+    }
+  },
+  "hotspot_profile": {
+    "hotspot": {
+      "cases": 21714,
+      "vendors": 6,
+      "median_cycle_days": 115.1361111111111,
+      "median_po_to_gr_days": 13.85138888888889,
+      "median_match_to_clear_days": 97.17083333333333,
+      "payment_block_share": 0.3169844340057106,
+      "slow_share": 0.635488624850327,
+      "spend_area_top": {
+        "Packaging": 0.997,
+        "Unknown": 0.002,
+        "Others": 0.001
+      }
+    },
+    "rest": {
+      "cases": 130941,
+      "vendors": 1541,
+      "median_cycle_days": 73.26388888888889,
+      "median_po_to_gr_days": 8.972916666666666,
+      "median_match_to_clear_days": 37.30486111111111,
+      "payment_block_share": 0.2697398064777266,
+      "slow_share": 0.186007438464652,
+      "spend_area_top": {
+        "Packaging": 0.354,
+        "Sales": 0.325,
+        "Trading & End Products": 0.107
+      }
+    }
+  }
+}

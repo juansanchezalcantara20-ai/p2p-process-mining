@@ -1,0 +1,9 @@
+attribute,value,cases,rate,lift
+an invoice receipt was cancelled,True,5055,0.5017,2.0072
+invoiced in several invoices,True,7892,0.4606,1.8428
+quantity changed after the PO,True,11244,0.4415,1.7663
+price changed after the PO,True,7837,0.4160,1.6643
+payment was blocked,True,42203,0.3574,1.4298
+goods arrived in several receipts,True,6356,0.3216,1.2866
+invoice posted before the goods arrived,True,12816,0.2774,1.1098
+vendor invoice dated before the PO,True,2355,0.0611,0.2446

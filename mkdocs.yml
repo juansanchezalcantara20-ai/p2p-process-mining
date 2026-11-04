@@ -31,4 +31,5 @@ nav:
   - "2 · AS-IS discovery": 02-discovery.md
   - "3 · Performance": 03-performance.md
   - "4 · Compliance": 04-conformance.md
+  - "5 · Root cause": 05-root-cause.md
   - "Decision log": DECISIONS.md
