@@ -885,6 +885,93 @@ be bought by weakening control: the after-the-fact guardrail and the three-way-m
 """
 
 
+def page_index(paths, source: str = "full") -> str | None:
+    q = _load(paths, "quality/quality_report.json")
+    d = _load(paths, "discovery/discovery_summary.json")
+    p = _load(paths, "performance/performance_summary.json")
+    c = _load(paths, "conformance/conformance_summary.json")
+    r = _load(paths, "rootcause/rootcause_summary.json")
+    s = _load(paths, "tobe/tobe_summary.json")
+    if None in (q, d, p, c, r, s):
+        return None
+    b, t = s["baseline"], s["target"]
+    stage = {x["stage"]: x for x in p["stages"]}
+    m2c = stage["Goods + invoice matched → cleared"]["median_days"]
+    hp, rest = r["hotspot_profile"]["hotspot"], r["hotspot_profile"]["rest"]
+    pb = next(x for x in c["impact"] if x["rule"] == "R5_payment_block")
+    opps = sorted(s["opportunities"], key=lambda o: o["priority"])
+    opp_rows = "\n".join(
+        f"| {o['priority']} | {o['name']} | {n(o['case_days_saved'])} | {o['effort']} |"
+        for o in opps
+    )
+    data_line = (
+        "the complete, public **BPI Challenge 2019** event log - real purchase-to-pay data from a "
+        "multinational coatings and paints company, anonymised and published on 4TU.ResearchData"
+        if source == "full"
+        else f"a **{source}** run of the pipeline (not the published analysis)"
+    )
+    return f"""# Purchase-to-pay process mining · committee summary
+
+*Evidence base: {data_line} - {n(q["fingerprint"]["events"])} events, {n(q["fingerprint"]["cases"])}
+purchase-order items, 2018.*
+
+## The problem
+
+A purchase-order item takes a median of **{n(b["median_cycle_days"])} days** from order to
+payment, and one in ten takes more than **{n(b["p90_cycle_days"])} days**. Only
+**{pct(b["on_time_payment_rate"], 0)}** of invoices are paid within 60 days of their date
+(assumed term), and **{pct(1 - b["first_pass_match_rate"], 0)}** of three-way-match items need
+a manual intervention before they can be paid.
+
+## The evidence
+
+The process was reconstructed from system logs rather than interviews. After a documented
+data-quality review ([1](01-data-quality.md)):
+
+* **There is no single process.** {n(d["variants"])} distinct paths; {d["variants_for_80pct"]}
+  of them cover 80% of items, and only {pct(d["textbook_share_complete_cases"], 0)} of completed
+  items follow the textbook flow ([2](02-discovery.md)).
+* **Time is lost after the goods and the invoice are both in.** That last stage takes a median
+  of {n(m2c)} days - more than half of the cycle. One hand-over, *invoice receipt → clear*,
+  holds {pct(p["top_waiting_handover"]["share_of_total_wait"], 0)} of all waiting time
+  ([3](03-performance.md)).
+* **Payment blocks are the costliest deviation.** {pct(pb["violation_rate"], 0)} of invoice
+  items were blocked; blocked items take a median {n(pb["excess_median_days"])} days longer than
+  comparable unblocked ones. Overall {pct(c["conforming_share"], 0)} of completed items conform
+  to the expected process ([4](04-conformance.md)).
+* **A small group of vendors explains much of the tail.** Low-value items from the
+  {hp["vendors"]} largest vendors ({n(hp["cases"])} items, almost all Packaging) are slow
+  {pct(hp["slow_share"], 0)} of the time versus {pct(rest["slow_share"], 0)} for everything
+  else; their extra time sits almost entirely after the invoice is matched ([5](05-root-cause.md)).
+* **Payment is anchored on the vendor's invoice date**, not on when the invoice is posted - so
+  faster invoice capture only helps invoices that are already late ([6](06-to-be.md)).
+
+## Recommendation
+
+Adopt the TO-BE process ([6](06-to-be.md)) - automatic three-way match with tolerance-based
+release, e-invoicing, contract prices in the PO, self-billing for high-volume low-value lines
+and "no PO, no pay" - in this order of priority:
+
+| # | Lever | Estimated waiting removed (case-days, 8 months of orders) | Effort |
+| --- | --- | --- | --- |
+{opp_rows}
+
+If every lever delivers as assumed, the median cycle time would move from
+**{n(b["median_cycle_days"])} to about {n(t["median_cycle_days"])} days**, first-pass match
+from {pct(b["first_pass_match_rate"], 0)} to {pct(t["first_pass_match_rate"], 0)}, and rework
+from {pct(b["rework_rate"], 0)} to {pct(t["rework_rate"], 0)}. **These are estimates derived
+from the 2018 data under written assumptions, not achieved savings.** Two decisions are needed
+first: confirm the hotspot vendors' payment terms (it decides whether lever O2 is worth
+anything) and replace the assumed 60-day term with real due dates.
+
+Progress would be tracked monthly on the control dashboard ([7](07-dmaic.md)).
+
+!!! info "How to read this site"
+    Pages 1-7 follow the analysis in order. Every number is regenerated from the data by
+    `make all`; every judgement call is in the [decision log](DECISIONS.md).
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
     "02-discovery.md": page_discovery,
@@ -898,6 +985,10 @@ PAGES = {
 
 def run(paths, source: str = "full") -> list[Path]:
     written = []
+    index = page_index(paths, source)
+    if index is not None:
+        (paths.docs / "index.md").write_text(index)
+        written.append(paths.docs / "index.md")
     for name, builder in PAGES.items():
         text = builder(paths)
         if text is None:

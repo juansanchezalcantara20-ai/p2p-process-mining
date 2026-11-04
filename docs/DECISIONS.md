@@ -89,3 +89,12 @@ Newest phase last.
 | B7 | Priority = waiting removed ÷ effort score (Low 1 / Medium 2 / High 3); effort is labelled as judgement. | Separates what the data can say (impact) from what it cannot (implementation effort). |
 | B8 | TO-BE drawn as a process tree → BPMN with pm4py, plus an ERS variant for the hotspot. | Keeps the TO-BE in the same, machine-readable notation as the AS-IS and the normative models. |
 | B9 | Control dashboard: monthly KPIs by PO-creation month on the baseline months, **3-sigma p-chart limits** for proportions, baseline and TO-BE target lines. | Standard Lean Six Sigma control; every KPI is computable from existing log fields, so the pipeline itself is the monitoring tool. |
+
+## Phase 7 · Report and close
+
+| # | Decision | Why |
+|---|---|---|
+| R1 | **MkDocs Material** for the report (not Quarto), published by a GitHub Actions Pages workflow from the committed `docs/`. | Pure-Python toolchain (`pip install`), no extra runtime; the site builds in under a second in CI without downloading the dataset. |
+| R2 | Report pages are **rendered by code** from `results/` (`report.py`); the committee summary is generated last from all phase outputs. | No number can drift from the data. |
+| R3 | The summary is written for a **committee**: problem → evidence → findings → recommendation, with the estimate caveat in the recommendation itself, not in a footnote. | That is how a process-improvement case is decided. |
+| R4 | CI runs lint, unit tests, a full pipeline smoke run on the versioned sample, and a strict site build on every push. | Proves the pipeline works end to end without the 37 MB download. |
