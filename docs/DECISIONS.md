@@ -28,3 +28,14 @@ Newest phase last.
 | Q7 | **Case status: complete / open / cancelled.** Complete = reached *Clear Invoice* (consignment: a goods receipt, since consignment items are not invoiced per item); cancelled = deleted and never reactivated. | Measuring cycle time on open cases would understate it (right censoring). Performance and root cause use complete cases only. |
 | Q8 | Normalise activity labels (whitespace, Title Case inside the *Change ...* family; prepositions such as "for" stay lower-case). | The source is consistent apart from *Change payment term*; the rule guards against a refreshed extract splitting one activity into two labels. |
 | Q9 | Keep cases with missing spend area (3,289), labelled *Unknown*. | The attribute is descriptive; the events are valid. |
+
+## Phase 2 · AS-IS discovery
+
+| # | Decision | Why |
+|---|---|---|
+| P1 | Discovery uses **all non-cancelled cases**, open ones included. | An unfinished case still shows real routing; only cycle-time measures need finished cases. |
+| P2 | The published BPMN is mined on **activities present in ≥ 5% of cases** (9 activities, 93% of events), Inductive Miner infrequent, noise 0.2. The all-activities model is also mined and its metrics reported. | With all 42 activities, fitness rises only from 0.975 to 0.983 while precision falls from 0.69 to 0.23 - a "flower" model that explains nothing. Reporting both makes the trade-off visible instead of hiding it. |
+| P3 | Precision is computed on a **fixed random subset of 5,000 cases** (seed 42). | Token-based precision on 243k cases is slow and the estimate is stable at this size. |
+| P4 | The DFG figures show arrows used by **≥ 2% of cases**; the complete edge list is exported to CSV. | Readability for a committee audience without losing the evidence. |
+| P5 | **"Textbook path"** = [requisition] → PO → [order confirmation] → vendor invoice and goods receipt (either order) → invoice receipt → clear invoice (consignment: PO → GR; 2-way: PO → invoice → IR → clear). Reported alongside the strict single most-frequent variant. | The vendor's invoice date is set by the vendor, independently of the goods receipt; treating its order as a deviation would mislabel normal behaviour. |
+| P6 | Median and P90 waiting per hand-over, plus **total** waiting (case-days). | The median shows the typical wait; the total shows where capacity and working capital are actually tied up. |

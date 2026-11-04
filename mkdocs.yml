@@ -28,4 +28,5 @@ markdown_extensions:
 nav:
   - "Committee summary": index.md
   - "1 · Data quality": 01-data-quality.md
+  - "2 · AS-IS discovery": 02-discovery.md
   - "Decision log": DECISIONS.md

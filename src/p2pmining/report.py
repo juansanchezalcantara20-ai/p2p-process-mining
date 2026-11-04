@@ -156,8 +156,137 @@ work flows.
 """
 
 
+def _short(v: str) -> str:
+    abbrev = {
+        C.PR: "PR",
+        C.PO: "PO",
+        C.VCI: "Vendor invoice",
+        C.GR: "GR",
+        C.IR: "IR",
+        C.CLEAR: "Clear",
+        C.REMOVE_BLOCK: "Remove block",
+        "Receive Order Confirmation": "Order conf.",
+    }
+    return " → ".join(abbrev.get(a, a) for a in v.split(" > "))
+
+
+def page_discovery(paths) -> str | None:
+    s = _load(paths, "discovery/discovery_summary.json")
+    if s is None:
+        return None
+    vt = _load(paths, "discovery/top_variants.csv").head(10)
+    edges = _load(paths, "discovery/dfg_edges.csv")
+    top = pd.DataFrame(
+        {
+            "#": range(1, len(vt) + 1),
+            "Variant": [_short(v) for v in vt["variant"]],
+            "Cases": vt["cases"].astype(int),
+            "Share": [pct(x) for x in vt["share"]],
+            "Cumulative": [pct(x) for x in vt["cumulative_share"]],
+            "Textbook?": ["yes" if h else "no" for h in vt["happy_path"]],
+        }
+    )
+    bycat = pd.DataFrame(s["textbook_share_by_category_complete"])
+    bycat = pd.DataFrame(
+        {
+            "Item category": bycat["cat"],
+            "Complete cases": bycat["complete_cases"].astype(int),
+            "Followed the textbook path": [pct(x) for x in bycat["happy_share"]],
+        }
+    )
+    busiest = edges.sort_values("total_days", ascending=False).head(6)
+    busiest = pd.DataFrame(
+        {
+            "From": busiest["source"],
+            "To": busiest["target"],
+            "Times": busiest["count"].astype(int),
+            "Median wait (days)": busiest["median_days"].round(1),
+            "Total waiting (case-days)": busiest["total_days"].round(0),
+        }
+    )
+    m, ma = s["model"], s["model_all_activities"]
+    return f"""# 2 · AS-IS discovery: the process as it really runs
+
+> **Question.** What does purchase-to-pay actually look like when we let the system logs
+> speak, instead of the procedure manual?
+
+Scope: {n(s["cases"])} non-cancelled cases, {n(s["events"])} events, {s["activities"]}
+distinct activities.
+
+## The directly-follows graph
+
+Each box is an activity; each arrow means "this happened right after that" in at least 2% of
+cases. Rarer activities and paths are hidden for readability (the full graph, with
+{s["dfg_edges"]} arrows, is in `results/discovery/dfg_edges.csv`).
+
+**By frequency** - how many times each hand-over happened:
+
+![DFG frequency](assets/figures/dfg_frequency.png)
+
+**By time** - the median waiting time on each hand-over (darker/red = slower):
+
+![DFG performance](assets/figures/dfg_performance.png)
+
+Where the waiting adds up (all cases, all hand-overs - *total* waiting, not the median, is
+what tells you where capacity is consumed):
+
+{md_table(busiest)}
+
+## Variants: the happy path versus reality
+
+A *variant* is a unique sequence of activities. The log contains **{n(s["variants"])}
+variants**; {n(s["singleton_variants"])} of them occur exactly once.
+**{s["variants_for_80pct"]} variants are enough to cover 80% of cases** - the remaining 20%
+of cases are spread over more than ten thousand one-off paths.
+
+![Variant coverage](assets/figures/variant_coverage.png)
+
+The single most frequent path - *{_short(s["top_variant"])}* - covers only
+**{pct(s["top_variant_share"])}** of cases. Allowing for legitimate options (a requisition
+first, an order confirmation, the vendor invoice dated before or after the goods receipt), the
+*textbook* path covers **{pct(s["textbook_share_complete_cases"])} of completed cases**. The
+other {pct(1 - s["textbook_share_complete_cases"])} took a detour: a payment block, a price or
+quantity change, a cancelled invoice, a second goods receipt.
+
+![Top variants](assets/figures/top_variants.png)
+
+{md_table(top)}
+
+Textbook adherence by item category (completed cases):
+
+{md_table(bycat)}
+
+The 2-way-match category never follows the textbook path: it is dominated by *Change Approval
+for Purchase Order* and by invoices that exist before the order - a small but structurally
+different process.
+
+## Discovered model (Inductive Miner)
+
+Inductive Miner (infrequent variant, noise threshold {m["noise_threshold"]}) on the
+{len(m["activities_in_model"])} activities that occur in at least
+{pct(m["min_activity_share"], 0)} of cases (they carry {pct(m["events_kept_share"])} of all
+events). BPMN file: [`models/as_is_inductive_core.bpmn`](https://github.com/juansanchezalcantara20-ai/p2p-process-mining/blob/main/models/as_is_inductive_core.bpmn).
+
+![AS-IS BPMN](assets/figures/as_is_bpmn_core.png)
+
+| Model | Activities | Log fitness | Fitting traces | Precision (5,000 cases) |
+| --- | --- | --- | --- | --- |
+| Core activities (≥ {pct(m["min_activity_share"], 0)} of cases) | {len(m["activities_in_model"])} | {m["log_fitness"]:.3f} | {m["fitting_traces_pct"]:.1f}% | {m["precision_5000_cases"]:.3f} |
+| All activities | {s["activities"]} | {ma["log_fitness"]:.3f} | {ma["fitting_traces_pct"]:.1f}% | {ma["precision_5000_cases"]:.3f} |
+
+**How to read it.** Fitness says how much of the observed behaviour the model can replay;
+precision says how little *unobserved* behaviour it allows. Adding all {s["activities"]}
+activities barely improves fitness but collapses precision: the model becomes a "flower" that
+permits almost anything. The core model is the honest AS-IS picture: after the purchase order,
+goods receipt, vendor invoice, invoice receipt, payment-block removal and clearing run
+**in parallel and can repeat**. In other words, the company has no enforced sequence between
+receiving goods and paying for them - which is exactly what phase 4 tests as compliance.
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
+    "02-discovery.md": page_discovery,
 }
 
 
