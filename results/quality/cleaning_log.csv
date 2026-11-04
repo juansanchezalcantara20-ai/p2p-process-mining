@@ -1,0 +1,6 @@
+step,events_removed,cases_removed,events_after,cases_after,rationale
+Normalise activity labels,0,0,1595923,251734,Collapse whitespace and fix Title Case in 'Change ...' labels so one activity has one name.
+Drop events without timestamp,0,0,1595923,251734,An event without time cannot be ordered.
+Drop cases with timestamps outside the observation window,3081,88,1592842,251646,"Events dated before 2017-01-01 or after 2019-02-01 (e.g. 1948, 2020) are data-entry errors; one impossible date makes the whole case's durations unreliable."
+Collapse exact duplicate events,132721,0,1460121,251646,"Rows identical in every attribute (same case, activity, minute, user and value) carry no extra timing or routing information but inflate loops and variant counts."
+Deterministic ordering,0,0,1460121,251646,"Sort by case, timestamp, then canonical P2P position to break ties between date-only events (23:59/00:00) recorded on the same day."

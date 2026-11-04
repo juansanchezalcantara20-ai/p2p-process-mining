@@ -1,0 +1,249 @@
+{
+  "fingerprint": {
+    "events": 1595923,
+    "cases": 251734,
+    "published_events": 1595923,
+    "published_cases": 251734,
+    "matches_publication": true,
+    "checked": true
+  },
+  "missing_values": {
+    "by_column": {
+      "spend_area": 16294,
+      "sub_spend_area": 16294,
+      "spend_classification": 16294
+    },
+    "cases_without_spend_area": 3289,
+    "events_with_user_NONE": 399090
+  },
+  "timestamps": {
+    "missing": 0,
+    "outside_window_events": 104,
+    "outside_window_cases": 88,
+    "window": [
+      "2017-01-01",
+      "2019-02-01"
+    ],
+    "min": "1948-01-26 23:59:00",
+    "max": "2020-04-09 23:59:00",
+    "events_at_23_59": 235032,
+    "events_at_00_00": 47742,
+    "events_by_year": {
+      "1948": 10,
+      "1993": 9,
+      "2001": 22,
+      "2008": 45,
+      "2015": 3,
+      "2016": 6,
+      "2017": 223,
+      "2018": 1550468,
+      "2019": 45135,
+      "2020": 2
+    },
+    "date_only_activities": [
+      {
+        "activity": "Vendor creates invoice",
+        "n": 219919,
+        "share_date_only": 1.0
+      },
+      {
+        "activity": "Create Purchase Requisition Item",
+        "n": 46592,
+        "share_date_only": 0.9999356112637363
+      },
+      {
+        "activity": "Vendor creates debit memo",
+        "n": 6255,
+        "share_date_only": 1.0
+      }
+    ]
+  },
+  "duplicates": {
+    "event_id_duplicates": 0,
+    "exact_duplicate_extra_events": 132748,
+    "exact_duplicate_cases": 4955,
+    "by_activity": [
+      {
+        "activity": "Record Service Entry Sheet",
+        "extra_copies": 120846.0,
+        "groups": 26450
+      },
+      {
+        "activity": "Record Goods Receipt",
+        "extra_copies": 10981.0,
+        "groups": 5789
+      },
+      {
+        "activity": "Clear Invoice",
+        "extra_copies": 584.0,
+        "groups": 556
+      },
+      {
+        "activity": "Change Quantity",
+        "extra_copies": 179.0,
+        "groups": 153
+      },
+      {
+        "activity": "Record Invoice Receipt",
+        "extra_copies": 51.0,
+        "groups": 25
+      },
+      {
+        "activity": "Cancel Goods Receipt",
+        "extra_copies": 39.0,
+        "groups": 34
+      },
+      {
+        "activity": "Change Price",
+        "extra_copies": 23.0,
+        "groups": 21
+      },
+      {
+        "activity": "Change Delivery Indicator",
+        "extra_copies": 16.0,
+        "groups": 16
+      },
+      {
+        "activity": "Remove Payment Block",
+        "extra_copies": 14.0,
+        "groups": 14
+      },
+      {
+        "activity": "SRM: In Transfer to Execution Syst.",
+        "extra_copies": 7.0,
+        "groups": 7
+      }
+    ]
+  },
+  "ordering": {
+    "cases_with_same_timestamp_ties": 18294,
+    "tie_groups": 41354,
+    "cases_with_events_before_po": 829,
+    "cases_invoice_dated_before_po": 3693,
+    "cases_without_po_event": 0,
+    "activities_dated_before_po": [
+      {
+        "activity": "Vendor creates invoice",
+        "cases": 3693
+      },
+      {
+        "activity": "Change Approval for Purchase Order",
+        "cases": 437
+      },
+      {
+        "activity": "Release Purchase Requisition",
+        "cases": 388
+      },
+      {
+        "activity": "Vendor creates debit memo",
+        "cases": 175
+      },
+      {
+        "activity": "Release Purchase Order",
+        "cases": 61
+      },
+      {
+        "activity": "Change Currency",
+        "cases": 2
+      }
+    ]
+  },
+  "activity_names": {
+    "distinct_activities": 42,
+    "leading_trailing_or_double_spaces": [],
+    "near_duplicate_groups": [],
+    "casing_inconsistent": [
+      "Change payment term"
+    ]
+  },
+  "case_attributes": {
+    "attributes_varying_within_a_case": [],
+    "distinct_values": {
+      "spend_area": 20,
+      "company": 4,
+      "document_type": 3,
+      "sub_spend_area": 135,
+      "purchasing_document": 76349,
+      "purch_doc_category": 1,
+      "vendor": 1975,
+      "item_type": 6,
+      "item_category": 4,
+      "spend_classification": 3,
+      "source_system": 1,
+      "vendor_name": 1899,
+      "gr_based_inv_verif": 2,
+      "item": 490,
+      "goods_receipt_flag": 2
+    }
+  },
+  "completeness": {
+    "complete": 197001,
+    "open": 46095,
+    "cancelled": 8550,
+    "by_category": {
+      "2-way match": {
+        "cancelled": 9,
+        "complete": 301,
+        "open": 732
+      },
+      "3-way match, invoice after GR": {
+        "cancelled": 321,
+        "complete": 9654,
+        "open": 5185
+      },
+      "3-way match, invoice before GR": {
+        "cancelled": 7806,
+        "complete": 173588,
+        "open": 39552
+      },
+      "Consignment": {
+        "cancelled": 414,
+        "complete": 13458,
+        "open": 626
+      }
+    },
+    "rule": "complete = reached 'Clear Invoice' (consignment: a goods receipt); cancelled = PO item deleted and not reactivated; open = otherwise."
+  },
+  "cleaning_log": [
+    {
+      "step": "Normalise activity labels",
+      "events_removed": 0,
+      "cases_removed": 0,
+      "events_after": 1595923,
+      "cases_after": 251734,
+      "rationale": "Collapse whitespace and fix Title Case in 'Change ...' labels so one activity has one name."
+    },
+    {
+      "step": "Drop events without timestamp",
+      "events_removed": 0,
+      "cases_removed": 0,
+      "events_after": 1595923,
+      "cases_after": 251734,
+      "rationale": "An event without time cannot be ordered."
+    },
+    {
+      "step": "Drop cases with timestamps outside the observation window",
+      "events_removed": 3081,
+      "cases_removed": 88,
+      "events_after": 1592842,
+      "cases_after": 251646,
+      "rationale": "Events dated before 2017-01-01 or after 2019-02-01 (e.g. 1948, 2020) are data-entry errors; one impossible date makes the whole case's durations unreliable."
+    },
+    {
+      "step": "Collapse exact duplicate events",
+      "events_removed": 132721,
+      "cases_removed": 0,
+      "events_after": 1460121,
+      "cases_after": 251646,
+      "rationale": "Rows identical in every attribute (same case, activity, minute, user and value) carry no extra timing or routing information but inflate loops and variant counts."
+    },
+    {
+      "step": "Deterministic ordering",
+      "events_removed": 0,
+      "cases_removed": 0,
+      "events_after": 1460121,
+      "cases_after": 251646,
+      "rationale": "Sort by case, timestamp, then canonical P2P position to break ties between date-only events (23:59/00:00) recorded on the same day."
+    }
+  ]
+}
