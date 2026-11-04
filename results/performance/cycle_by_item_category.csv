@@ -1,0 +1,5 @@
+item_category,cases,median_days,p75_days,p90_days,mean_days,total_case_days
+"3-way match, invoice before GR",144342,80.10,110.97,132.09,84.64,12217163.73
+Consignment,9926,20.81,30.15,49.09,24.80,246160.29
+"3-way match, invoice after GR",8176,83.55,107.43,135.04,93.05,760752.98
+2-way match,137,7.91,27.06,89.29,32.04,4389.25

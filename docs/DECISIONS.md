@@ -39,3 +39,15 @@ Newest phase last.
 | P4 | The DFG figures show arrows used by **≥ 2% of cases**; the complete edge list is exported to CSV. | Readability for a committee audience without losing the evidence. |
 | P5 | **"Textbook path"** = [requisition] → PO → [order confirmation] → vendor invoice and goods receipt (either order) → invoice receipt → clear invoice (consignment: PO → GR; 2-way: PO → invoice → IR → clear). Reported alongside the strict single most-frequent variant. | The vendor's invoice date is set by the vendor, independently of the goods receipt; treating its order as a deviation would mislabel normal behaviour. |
 | P6 | Median and P90 waiting per hand-over, plus **total** waiting (case-days). | The median shows the typical wait; the total shows where capacity and working capital are actually tied up. |
+
+## Phase 3 · Performance
+
+| # | Decision | Why |
+|---|---|---|
+| T1 | **Time only complete cases from a mature cohort: POs created 2018-01-01 to 2018-08-31.** | Completion falls from ~92% for early-2018 orders to 33% (Nov) and 8% (Dec). Finished items from late cohorts are only the fast ones, so their median cycle time drops from ~80 to ~29 days purely through right censoring. The month-by-month chart is published so the reader can see why. |
+| T2 | **Cycle time = PO item creation → last *Clear Invoice*** (consignment: → last goods receipt). | The business question is "order to paid". The *last* clearing captures items paid in several instalments; consignment items are not invoiced per item. |
+| T3 | **Stage decomposition**: PO → first GR; vendor invoice date → invoice posted; max(first GR, first IR) → first clear. | Separates supplier delivery, AP capture and matching/payment, which have different owners. |
+| T4 | **Median and P90 everywhere, mean shown alongside.** | Stage durations are right-skewed (invoice capture: median 8.7 vs mean 18.6 days). The median describes the typical item, P90 the tail suppliers feel; showing the mean beside them makes the skew explicit rather than hidden. |
+| T5 | **Total waiting (case-days) per hand-over** to locate bottlenecks. | A hand-over with a modest median can still consume the most capacity if it happens to every case. |
+| T6 | Report invoice-to-clear waiting **without calling all of it waste**. | No payment-term field exists; part of this wait is intentional. Phase 6 only claims the excess over an explicit term assumption. |
+| T7 | Segment tables require ≥ 30 cases per group; vendors and spend areas limited to the largest. | Medians of tiny groups are noise. |

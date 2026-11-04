@@ -30,6 +30,11 @@ SOURCE_ENCODING = "cp1252"
 # The log covers purchase orders created in 2018; extraction happened in early 2019.
 WINDOW_START = "2017-01-01"
 WINDOW_END = "2019-02-01"
+# Mature cohort for duration measures: POs created Jan-Aug 2018. At least ~89% of these items
+# had finished by extraction; later cohorts are dominated by unfinished items, so their
+# "complete" cases are only the fast ones (right censoring).
+COHORT_START = "2018-01-01"
+COHORT_END = "2018-09-01"
 
 # --- Column mapping (raw CSV header -> canonical snake_case) --------------------------------
 COLUMN_MAP = {

@@ -284,9 +284,113 @@ receiving goods and paying for them - which is exactly what phase 4 tests as com
 """
 
 
+def page_performance(paths) -> str | None:
+    s = _load(paths, "performance/performance_summary.json")
+    if s is None:
+        return None
+    ci, cc, pb = s["cycle_invoice"], s["cycle_consignment"], s["payment_block"]
+    stages = pd.DataFrame(s["stages"])
+    stages.columns = ["Stage", "Median (days)", "P90 (days)", "Mean (days)"]
+    cat = _load(paths, "performance/cycle_by_item_category.csv")
+    cat = cat[["item_category", "cases", "median_days", "p90_days", "mean_days"]]
+    cat.columns = ["Item category", "Cases", "Median (days)", "P90 (days)", "Mean (days)"]
+    doc = _load(paths, "performance/cycle_by_document_type.csv")
+    doc = doc[["document_type", "cases", "median_days", "p90_days"]]
+    doc.columns = ["Document type", "Cases", "Median (days)", "P90 (days)"]
+    tw = s["top_waiting_handover"]
+    sa, fa = s["slowest_spend_area"], s["fastest_spend_area"]
+    return f"""# 3 · Performance and bottlenecks
+
+> **Question.** How long does it take to go from a purchase order to a paid invoice, where
+> does the time go, and for whom is it worse?
+
+## Measuring honestly
+
+**Only finished cases from a mature cohort are timed.** A case still open at extraction has
+no end date, so it cannot be timed - but excluding it is not neutral either: for orders
+created late in 2018 only the *fast* items had finished, so they look artificially quick.
+
+![Censoring by month](assets/figures/censoring_by_month.png)
+
+We therefore time purchase orders created between **{s["cohort"][0]} and {s["cohort"][1]}**
+(exclusive), when ~90% of items had finished. That leaves
+**{n(s["complete_cases"])} complete cases** ({n(s["invoice_cases"])} invoice items) out of
+{n(s["complete_cases_all"])} complete cases in total.
+
+**Medians and percentiles, not averages.** Durations cannot go below zero but can run for a
+year, so a few extreme cases drag the mean away from the typical case. The median is what a
+typical item experiences; P90 is what the unlucky tenth experiences, and is the number a
+supplier complains about. Each stage below shows the gap: invoice capture has a median of
+{n(stages.iloc[1, 1], 1)} days but a mean of {n(stages.iloc[1, 3], 1)} days - a mean would
+double the apparent problem for most items while hiding how bad the tail really is.
+
+## Cycle time
+
+Invoice items: **median {n(ci["median"])} days** from PO creation to the last invoice cleared,
+P25 {n(ci["p25"])}, P75 {n(ci["p75"])}, **P90 {n(ci["p90"])} days** (mean {n(ci["mean"], 1)}).
+Consignment items (no invoice per item): median {n(cc["median"])} days to the last goods
+receipt, P90 {n(cc["p90"])}.
+
+![Cycle time distribution](assets/figures/cycle_time_distribution.png)
+
+{md_table(cat)}
+
+## Where the time goes
+
+![Stage durations](assets/figures/stage_durations.png)
+
+{md_table(stages)}
+
+**The bottleneck is after the goods and the invoice are both in.** The stage from "goods
+received and invoice posted" to "invoice cleared" takes a median of
+**{n(stages.iloc[2, 1])} days - more than half of the end-to-end time**. Receiving goods
+({n(stages.iloc[0, 1])} days median) and capturing invoices ({n(stages.iloc[1, 1])} days) are
+comparatively quick.
+
+![Waiting Pareto](assets/figures/waiting_pareto.png)
+
+The single hand-over *{tw["source"]} → {tw["target"]}* holds
+**{pct(tw["share_of_total_wait"])} of all waiting time** (median {n(tw["median_days"])} days);
+the top three hand-overs hold {pct(s["top3_handover_share"])}. Two of the top six involve the
+payment block.
+
+**Payment blocks.** {pct(pb["share_cases"])} of invoice items had a payment block removed
+before clearing. Their median cycle time is **{n(pb["median_with"])} days versus
+{n(pb["median_without"])} without** a block; from invoice receipt to clearing they take a
+median {n(pb["median_ir_to_clear_with"])} days versus {n(pb["median_ir_to_clear_without"])}.
+
+!!! note "Caveat - some waiting is by design"
+    The log has no payment-term or due-date field. Part of the invoice-to-clearing time is
+    almost certainly deliberate (paying on agreed terms, e.g. 30-60 days, protects working
+    capital). The improvement case in phase 6 therefore targets the *excess* over a term
+    assumption and the waiting caused by blocks, not all of it.
+
+## Who is affected
+
+![Cycle by spend area](assets/figures/cycle_by_spend_area.png)
+
+The slowest large spend area is **{sa["spend_area"]}** (median {n(sa["median_days"])} days,
+{n(sa["cases"])} cases); the fastest is **{fa["spend_area"]}** (median
+{n(fa["median_days"])} days). Logistics has an unusually long tail (see its P90).
+
+![Cycle by vendor](assets/figures/cycle_by_vendor.png)
+
+Among the 15 largest vendors, medians range from **{n(s["vendor_median_range"][0])} to
+{n(s["vendor_median_range"][1])} days** - a threefold spread for the same company and the same
+process, which points at vendor-specific practices (invoice timing, partial deliveries,
+blocks) rather than at the process design.
+
+{md_table(doc)}
+
+Framework orders (call-offs against a long-running contract) are structurally long; they
+should be tracked against their own target, not the standard-PO target.
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
     "02-discovery.md": page_discovery,
+    "03-performance.md": page_performance,
 }
 
 

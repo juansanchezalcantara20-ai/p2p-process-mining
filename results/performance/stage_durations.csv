@@ -1,0 +1,5 @@
+stage,median_days,p90_days,mean_days
+PO → first goods receipt,9.92,33.73,15.30
+Vendor invoice date → invoice posted,8.66,48.46,18.64
+Goods + invoice matched → cleared,44.07,98.69,49.76
+End to end (PO → last clear),80.13,132.15,85.04

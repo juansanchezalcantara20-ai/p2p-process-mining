@@ -1,7 +1,101 @@
 {
   "source": "full",
+  "performance": {
+    "cohort": [
+      "2018-01-01",
+      "2018-09-01"
+    ],
+    "complete_cases_all": 197001,
+    "complete_cases": 162581,
+    "invoice_cases": 152655,
+    "cycle_all": {
+      "n": 162581,
+      "mean": 81.36538859860623,
+      "median": 78.00833333333334,
+      "p25": 52.240972222222226,
+      "p75": 107.29444444444445,
+      "p90": 129.23263888888889,
+      "p95": 143.0534722222222,
+      "max": 379.9513888888889
+    },
+    "cycle_invoice": {
+      "n": 152655,
+      "mean": 85.04343751705917,
+      "median": 80.13055555555556,
+      "p25": 57.141666666666666,
+      "p75": 110.83125,
+      "p90": 132.15,
+      "p95": 146.14583333333334,
+      "max": 379.9513888888889
+    },
+    "cycle_consignment": {
+      "n": 9926,
+      "mean": 24.799545595741822,
+      "median": 20.80625,
+      "p25": 13.010069444444445,
+      "p75": 30.145138888888887,
+      "p90": 49.09236111111111,
+      "p95": 62.56892361111111,
+      "max": 209.80208333333334
+    },
+    "stages": [
+      {
+        "stage": "PO \u2192 first goods receipt",
+        "median_days": 9.924305555555556,
+        "p90_days": 33.734097222222225,
+        "mean_days": 15.304191615344715
+      },
+      {
+        "stage": "Vendor invoice date \u2192 invoice posted",
+        "median_days": 8.659027777777778,
+        "p90_days": 48.46180555555556,
+        "mean_days": 18.641638825622074
+      },
+      {
+        "stage": "Goods + invoice matched \u2192 cleared",
+        "median_days": 44.06666666666666,
+        "p90_days": 98.68680555555555,
+        "mean_days": 49.7644772929802
+      },
+      {
+        "stage": "End to end (PO \u2192 last clear)",
+        "median_days": 80.13055555555556,
+        "p90_days": 132.15,
+        "mean_days": 85.04343751705917
+      }
+    ],
+    "payment_block": {
+      "share_cases": 0.27637483213782715,
+      "median_with": 93.04618055555557,
+      "median_without": 77.03958333333334,
+      "median_ir_to_clear_with": 55.0,
+      "median_ir_to_clear_without": 41.0
+    },
+    "top_waiting_handover": {
+      "source": "Record Invoice Receipt",
+      "target": "Clear Invoice",
+      "share_of_total_wait": 0.38121738956711426,
+      "median_days": 37.94861111111111
+    },
+    "top3_handover_share": 0.6199506409590932,
+    "slowest_spend_area": {
+      "spend_area": "Packaging",
+      "median_days": 100.31388888888888,
+      "cases": 68051
+    },
+    "fastest_spend_area": {
+      "spend_area": "CAPEX & SOCS",
+      "median_days": 27.293055555555554,
+      "cases": 3852
+    },
+    "vendor_median_range": [
+      43.06458333333333,
+      126.21319444444444
+    ]
+  },
   "timings_seconds": {
-    "quality": 23.1,
+    "quality": 22.6,
+    "performance": 10.2,
     "report": 0.0
   }
 }
