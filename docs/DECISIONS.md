@@ -51,3 +51,16 @@ Newest phase last.
 | T5 | **Total waiting (case-days) per hand-over** to locate bottlenecks. | A hand-over with a modest median can still consume the most capacity if it happens to every case. |
 | T6 | Report invoice-to-clear waiting **without calling all of it waste**. | No payment-term field exists; part of this wait is intentional. Phase 6 only claims the excess over an explicit term assumption. |
 | T7 | Segment tables require ≥ 30 cases per group; vendors and spend areas limited to the largest. | Medians of tiny groups are noise. |
+
+## Phase 4 · Compliance and conformance
+
+| # | Decision | Why |
+|---|---|---|
+| K1 | **Seven explicit business rules** (three-way match before payment, invoice before GR for GR-based IV items, price change after PO, quantity change after PO, payment block, after-the-fact PO, cancelled invoice receipt), each applied only to the categories it governs. | Rules are what auditors and process owners actually ask about; applicability matters (an invoice before GR is *allowed* in the "invoice before GR" category). |
+| K2 | Three-way match is checked on the **sequence** (GR and IR exist before clearing), not on amounts. | The log carries the cumulative PO net worth, not GR/IR amounts, so value matching is impossible. Stated as a limitation. |
+| K3 | After-the-fact = vendor invoice dated **before the day** of PO creation. | The vendor invoice date is date-only; comparing at day level avoids flagging same-day documents as violations. |
+| K4 | **Normative models hand-written as process trees per item category**, converted to Petri nets / BPMN. Partial deliveries and invoices are allowed through a loop; anything outside the model (blocks, changes, cancellations) makes a case non-conforming. | The expected process differs by category; a single model would either reject legitimate behaviour or accept everything. |
+| K5 | **Token-based replay on every case** (replayed per unique variant, mapped back) for the headline conformance rate; **optimal alignments on a stratified random subset of ~3,000 cases** (≤ 60 events each) to locate deviations. | Token replay scales to 243k cases; alignments are exact but expensive, and a 3,000-case subset gives stable move counts. |
+| K6 | Headline conformance is reported on **completed cases**; the all-cases figure is shown too. | An open case is non-conforming only because it has not finished, which is not a deviation. |
+| K7 | **Impact ranking = average rank of (cases affected, PO value affected, excess case-days).** Excess days compare medians *within the same item category* on the mature cohort. | Scale-free and transparent: no arbitrary weights. Within-category comparison prevents blaming a rule for the pace of the category it applies to. |
+| K8 | Negative "excess days" are reported as they are, not hidden. | After-the-fact POs and payment without full match are faster than peers - the speed comes from skipping the control. That changes the argument for fixing them (audit risk, not time). |

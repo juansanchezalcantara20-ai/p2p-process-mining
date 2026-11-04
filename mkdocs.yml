@@ -30,4 +30,5 @@ nav:
   - "1 · Data quality": 01-data-quality.md
   - "2 · AS-IS discovery": 02-discovery.md
   - "3 · Performance": 03-performance.md
+  - "4 · Compliance": 04-conformance.md
   - "Decision log": DECISIONS.md

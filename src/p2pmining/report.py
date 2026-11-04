@@ -387,10 +387,131 @@ should be tracked against their own target, not the standard-PO target.
 """
 
 
+def page_conformance(paths) -> str | None:
+    s = _load(paths, "conformance/conformance_summary.json")
+    if s is None:
+        return None
+    imp = pd.DataFrame(s["impact"])
+    rules = s["rules"]
+    ctrl = pd.DataFrame(
+        {
+            "Rule": [rules[r]["title"] for r in rules],
+            "Control tested": [rules[r]["control"] for r in rules],
+            "Applies to": [rules[r]["applies_to"] for r in rules],
+        }
+    )
+    rank = pd.DataFrame(
+        {
+            "Rank": range(1, len(imp) + 1),
+            "Deviation": imp["title"],
+            "Cases": imp["violating_cases"].astype(int),
+            "Rate": [pct(x) for x in imp["violation_rate"]],
+            "PO value affected (EUR M)": (imp["value_eur"] / 1e6).round(1),
+            "Extra median days vs peers": [n(x, 1) for x in imp["excess_median_days"]],
+            "Excess case-days": [n(x) for x in imp["excess_case_days"]],
+        }
+    )
+    cat = pd.DataFrame(s["by_category"])
+    cat = pd.DataFrame(
+        {
+            "Item category": cat["item_category"],
+            "Completed cases": cat["cases"].astype(int),
+            "Conforming": [pct(x) for x in cat["conforming"]],
+            "Mean trace fitness": cat["mean_fitness"].round(3),
+        }
+    )
+    al = _load(paths, "conformance/alignment_deviations.csv").head(8)
+    al = al[["move_type", "activity", "moves"]]
+    al.columns = ["Move type", "Activity", "Moves"]
+    r = {x["rule"]: x for x in s["impact"]}
+    pb, r2, r6, r1 = (
+        r["R5_payment_block"],
+        r["R2_invoice_before_gr"],
+        r["R6_after_the_fact_po"],
+        r["R1_no_three_way_match"],
+    )
+    return f"""# 4 · Compliance and conformance
+
+> **Question.** Does the process follow the controls a purchase-to-pay process is supposed to
+> have - and when it does not, which deviations matter most?
+
+## Two lenses
+
+1. **Business rules** - seven classic P2P controls checked case by case.
+2. **Model-based conformance** - every case replayed against an *expected* (normative) model
+   for its item category, using token-based replay; optimal alignments on a random subset of
+   {n(s["alignment_cases"])} cases show *where* cases depart from it.
+
+## Business rules
+
+{md_table(ctrl)}
+
+![Compliance rules](assets/figures/compliance_rules.png)
+
+**{pct(s["any_rule_violation_share"])} of non-cancelled cases breach at least one rule.**
+Ranked by impact - number of cases, PO value exposed and excess cycle time versus comparable
+cases of the same item category that did *not* breach the rule (each dimension ranked, then
+averaged, so no hidden weights):
+
+{md_table(rank)}
+
+How to read the ranking:
+
+* **Payment blocks are the dominant deviation**: {n(pb["violating_cases"])} invoice items
+  ({pct(pb["violation_rate"])}), EUR {n(pb["value_eur"] / 1e6, 0)} M of PO value, and a median
+  of {n(pb["excess_median_days"], 1)} extra days compared with unblocked peers.
+* **Rework after ordering** (quantity and price changes) is next: the order was issued before
+  the commercial terms were settled.
+* **The GR-based invoice-verification control works**: {n(r2["violating_cases"])} of
+  {n(r2["applicable_cases"])} items flagged *invoice after GR* had the invoice posted before
+  the goods. The system enforces it - a useful contrast with the rules that rely on people.
+* **After-the-fact purchasing** ({n(r6["violating_cases"])} cases, EUR
+  {n(r6["value_eur"] / 1e6, 0)} M) and **payment without a complete three-way match**
+  ({n(r1["violating_cases"])} cases) are *faster* than their peers. They are not time
+  problems; they are **control** problems - the speed comes precisely from skipping the
+  control. Their priority comes from audit risk, not from waiting time.
+
+## Conformance against the expected model
+
+The expected model for the dominant category (*3-way match, invoice before GR*): optional
+requisition and order confirmation, then - per delivery - the goods receipt in parallel with
+the vendor invoice and invoice posting, and clearing only once both are in.
+
+![Normative model](assets/figures/normative_3way_before_gr.png)
+
+Normative BPMN files for all four categories are in `models/normative_*.bpmn`.
+
+**{pct(s["conforming_share"])} of completed cases conform** to their expected model
+(mean trace fitness {s["mean_trace_fitness"]:.3f}); {pct(s["share_with_extra_activities"])}
+contain at least one activity the expected model does not foresee. Across *all* non-cancelled
+cases the figure is {pct(s["conforming_share_all"])}, because open cases have not reached
+clearing yet.
+
+![Conformance by category](assets/figures/conformance_by_category.png)
+
+{md_table(cat)}
+
+Where the alignments locate the deviations (moves summed over the aligned subset):
+
+{md_table(al)}
+
+*Log moves* are steps that happened but should not have (payment-block removals, extra goods
+receipts and service-entry sheets, changes); *model moves* are steps the model expected but
+that never happened (mostly clearing in items that were never paid in full, and missing
+invoice receipts).
+
+The 2-way-match category conforms 0%: every one of its cases carries *Change Approval for
+Purchase Order*, which the expected model does not contain. Either the expected model is
+wrong for this category (approval changes are its normal practice) or the practice is; this
+is a question for the process owner, not something the data can settle.
+"""
+
+
 PAGES = {
     "01-data-quality.md": page_quality,
     "02-discovery.md": page_discovery,
     "03-performance.md": page_performance,
+    "04-conformance.md": page_conformance,
 }
 
 
